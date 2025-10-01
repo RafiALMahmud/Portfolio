@@ -4,7 +4,9 @@
 /.env
 /.env.*
 /storage/*.key
-/public/storage
+/public/storage/*
+!/public/storage/products/
+!/public/storage/products/**
 /storage/app/public
 /storage/framework/cache/*
 /storage/framework/sessions/*
@@ -24,7 +26,6 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-composer.lock
 
 # Misc
 /vendor-bin/**/vendor/
@@ -32,7 +33,9 @@ composer.lock
 /node_modules
 /public/build
 /public/hot
-/public/storage
+/public/storage/*
+!/public/storage/products/
+!/public/storage/products/**
 /storage/*.key
 /vendor
 .env
