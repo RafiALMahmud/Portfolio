@@ -36,3 +36,5 @@ class CleanupOldNotifications extends Command
     }
 }
 
+
+
