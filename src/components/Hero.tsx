@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react'
 
+const TITLES = [
+  'Full-Stack JavaScript Developer',
+  'MERN Stack Developer',
+  'React Specialist',
+  'Node.js Expert'
+]
+
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -9,18 +16,11 @@ export default function Hero() {
     setIsVisible(true)
   }, [])
 
-  const titles = [
-    'Full-Stack JavaScript Developer',
-    'MERN Stack Developer',
-    'React Specialist',
-    'Node.js Expert'
-  ]
-
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTitleIndex((prev) => (prev + 1) % titles.length)
+      setCurrentTitleIndex((prev) => (prev + 1) % TITLES.length)
     }, 3000)
 
     return () => clearInterval(interval)
@@ -36,7 +36,7 @@ export default function Hero() {
           
           <div className="relative mb-8">
             <h2 className="text-2xl md:text-4xl font-section font-sans text-accent">
-              {titles[currentTitleIndex]}
+              {TITLES[currentTitleIndex]}
             </h2>
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-accent transition-all duration-300 animate-typewriter"></div>
           </div>
