@@ -4,20 +4,20 @@ import { useEffect, useRef } from 'react'
 
 const skillCategories = [
   {
-    categoryName: 'Languages',
-    skills: ['JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Python']
+    categoryName: 'Programming Languages',
+    skills: ['Python', 'Java', 'PHP', 'HTML5', 'CSS3']
   },
   {
     categoryName: 'Frameworks & Libraries',
-    skills: ['React', 'Node.js', 'Express.js', 'Next.js', 'Tailwind CSS', 'Material-UI']
+    skills: ['Laravel', 'OpenGL', 'TensorFlow', 'Keras']
   },
   {
-    categoryName: 'Databases',
-    skills: ['MongoDB', 'Firebase', 'MySQL', 'PostgreSQL']
+    categoryName: 'Databases & Tools',
+    skills: ['MySQL', 'Git', 'GitHub', 'Postman', 'VS Code']
   },
   {
-    categoryName: 'Tools & Platforms',
-    skills: ['Git', 'GitHub', 'Vercel', 'VS Code', 'Figma', 'Postman', 'Docker']
+    categoryName: 'Machine Learning',
+    skills: ['CycleGAN', 'MobileNetV2', 'ResNet50', 'Transfer Learning', 'Data Augmentation']
   }
 ]
 
@@ -51,7 +51,7 @@ export default function Skills() {
             Skills & Technologies
           </h2>
           <p className="text-body font-body text-text-secondary max-w-2xl mx-auto">
-            A comprehensive overview of the technologies and tools I use to bring ideas to life
+            Technologies and tools I've mastered for building scalable backend systems, RESTful APIs, and machine learning applications
           </p>
         </div>
         
@@ -86,10 +86,9 @@ export default function Skills() {
               Continuous Learning
             </h3>
             <p className="text-body font-body text-text-secondary max-w-3xl mx-auto">
-              Technology evolves rapidly, and so do I. I'm constantly exploring new frameworks, 
-              tools, and methodologies to stay at the forefront of web development. Currently, 
-              I'm diving deeper into advanced React patterns, serverless architectures, and 
-              performance optimization techniques.
+              Technology evolves rapidly, and so do I. I'm constantly exploring advanced backend architectures, 
+              modern PHP/Laravel patterns, machine learning applications, and scalable system design. 
+              My focus is on building robust, maintainable solutions that solve real-world problems efficiently.
             </p>
           </div>
         </div>

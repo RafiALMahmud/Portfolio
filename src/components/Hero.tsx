@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 
 const TITLES = [
-  'Full-Stack JavaScript Developer',
-  'MERN Stack Developer',
-  'React Specialist',
-  'Node.js Expert'
+  'Backend & Full-Stack Developer',
+  'Laravel & PHP Specialist',
+  'REST API Developer',
+  'Database Architect'
 ]
 
 export default function Hero() {
@@ -42,8 +42,8 @@ export default function Hero() {
           </div>
           
           <p className="text-body font-body text-text-secondary max-w-2xl mx-auto mb-12 leading-relaxed">
-            I build modern, scalable web applications using the MERN stack. 
-            Passionate about creating efficient solutions and clean, maintainable code.
+            I build scalable web applications using Laravel, PHP, and Python. 
+            Specialized in designing RESTful APIs, efficient database architectures, and clean coding practices.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

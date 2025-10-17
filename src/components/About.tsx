@@ -34,20 +34,19 @@ export default function About() {
             </h2>
             <div className="space-y-6 text-body font-body text-text-secondary leading-relaxed">
               <p>
-                I'm a passionate full-stack JavaScript developer with a strong focus on the MERN stack. 
-                My journey in web development began with a curiosity about how digital experiences are created, 
-                and it has evolved into a deep expertise in building scalable, user-friendly applications.
+                I'm a detail-oriented and motivated software developer with a strong foundation in backend and full-stack development. 
+                I specialize in building scalable web applications using Laravel, PHP, Python, and MySQL. 
+                My expertise spans from designing RESTful APIs and efficient database architectures to implementing secure authentication systems and role-based access control.
               </p>
               <p>
-                What drives me is the challenge of solving complex problems through clean, efficient code. 
-                I believe in the power of technology to create meaningful solutions that make a difference 
-                in people's lives. Whether it's building an e-commerce platform, a medical portal, or a 
-                volunteer management system, I approach each project with attention to detail and a commitment to excellence.
+                I thrive in fast-paced, agile environments where I can leverage my analytical problem-solving skills to deliver high-quality, 
+                reliable software solutions. Whether it's engineering a secure job portal with RBAC, developing deep learning pipelines for medical imaging, 
+                or building full-stack e-commerce platforms, I approach each project with meticulous attention to detail and a commitment to clean, maintainable code.
               </p>
               <p>
-                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, 
-                or sharing knowledge with the developer community. I'm always eager to learn and grow, 
-                and I'm excited about the opportunity to bring my skills and passion to your next project.
+                I hold a B.Sc. in Computer Science and Engineering from BRAC University (CGPA: 3.54) and an HSC from Islamia Degree College. 
+                I'm passionate about continuous learning, staying updated with emerging technologies, and contributing to the developer community. 
+                I'm always eager for new challenges and opportunities to grow professionally.
               </p>
             </div>
           </div>
@@ -55,12 +54,20 @@ export default function About() {
           <div className="space-y-6">
             <div className="bg-surface p-6 rounded-lg border border-surface hover:border-accent transition-colors duration-300">
               <h3 className="text-xl font-sans font-semibold text-text-primary mb-3">
-                My Approach
+                Education
               </h3>
-              <p className="text-body font-body text-text-secondary">
-                I believe in writing code that is not just functional, but also maintainable, 
-                scalable, and well-documented. Every project is an opportunity to learn and improve.
-              </p>
+              <div className="space-y-3 text-body font-body text-text-secondary">
+                <div>
+                  <div className="font-semibold text-text-primary">B.Sc. Computer Science & Engineering</div>
+                  <div>BRAC University, Bangladesh</div>
+                  <div className="text-sm">CGPA: 3.54</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-text-primary">Higher Secondary Certificate</div>
+                  <div>Islamia Degree College, Chittagong</div>
+                  <div className="text-sm">Grade: 5/5</div>
+                </div>
+              </div>
             </div>
             
             <div className="bg-surface p-6 rounded-lg border border-surface hover:border-accent transition-colors duration-300">
@@ -92,12 +99,18 @@ export default function About() {
             
             <div className="bg-surface p-6 rounded-lg border border-surface hover:border-accent transition-colors duration-300">
               <h3 className="text-xl font-sans font-semibold text-text-primary mb-3">
-                Beyond Code
+                Location & Contact
               </h3>
-              <p className="text-body font-body text-text-secondary">
-                I'm passionate about mentoring, contributing to open source, and staying up-to-date 
-                with the latest trends in web development. I actively share my learning journey with the community.
-              </p>
+              <div className="space-y-2 text-body font-body text-text-secondary">
+                <div>
+                  <div className="font-semibold text-text-primary">📍 Based in Dhaka</div>
+                  <div className="text-sm">House 27, Road No 3, Block-D, Banasree, Rampura</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-text-primary">📞 Phone</div>
+                  <div className="text-sm">+8801974616402</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -4,25 +4,25 @@ import { useEffect, useRef } from 'react'
 
 const projects = [
   {
-    title: 'Ema John E-Commerce',
-    description: 'A full-stack e-commerce platform built with React and Firebase. Features include user authentication, product catalog, shopping cart, order management, and admin dashboard for inventory control.',
-    technologies: ['React', 'Firebase', 'JavaScript', 'CSS3', 'HTML5'],
-    liveUrl: 'https://ema-john-simple-with-firebase-auth.web.app/',
-    repoUrl: 'https://github.com/RafiALMahmud/ema-john-e-commerce'
+    title: 'Job Portal',
+    description: 'A secure, multi-user job portal platform featuring role-based access control (RBAC) for three distinct user types: job seekers, employers, and administrators. Designed with a normalized MySQL database schema for efficient data integrity. Includes comprehensive admin dashboard with full CRUD functionality and secure Laravel authentication.',
+    technologies: ['Laravel', 'PHP', 'MySQL', 'HTML5', 'CSS3'],
+    liveUrl: '#',
+    repoUrl: 'https://github.com/RafiALMahmud'
   },
   {
-    title: 'Doctors Portal',
-    description: 'A comprehensive medical portal connecting patients with healthcare providers. Includes appointment booking, patient management, doctor scheduling, and administrative dashboards for clinic operations.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express.js', 'JWT', 'Tailwind CSS'],
-    liveUrl: 'https://doctors-portal-client-side-a1859.web.app/',
-    repoUrl: 'https://github.com/RafiALMahmud/doctors-portal-client-side'
+    title: 'COVID-19 Radiography - CycleGAN Augmentation',
+    description: 'A deep learning pipeline for detecting COVID-19 from chest X-ray images using CycleGAN for data augmentation. Implemented and fine-tuned transfer learning models (MobileNetV2, ResNet50) demonstrating improved accuracy with GAN-augmented data. Showcases practical application of machine learning in healthcare.',
+    technologies: ['Python', 'TensorFlow', 'Keras', 'CycleGAN', 'MobileNetV2', 'ResNet50'],
+    liveUrl: 'https://github.com/RafiALMahmud/Corona-virus-detection-Using-Augmented-dataset',
+    repoUrl: 'https://github.com/RafiALMahmud/Corona-virus-detection-Using-Augmented-dataset'
   },
   {
-    title: 'Volunteer Network',
-    description: 'A platform connecting volunteers with organizations and events. Features include event registration, user profiles, volunteer matching, and comprehensive dashboards for both volunteers and organizations.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express.js', 'Material-UI', 'Firebase'],
-    liveUrl: 'https://volunteer-network-client-a400f.web.app/',
-    repoUrl: 'https://github.com/RafiALMahmud/volunteer-network-client'
+    title: 'E-Commerce Web Application',
+    description: 'A full-stack e-commerce platform with complete product and inventory management capabilities for administrators. Implements core customer-facing features including user authentication, shopping cart functionality, and order processing workflows. Optimized database schema for complex relationships.',
+    technologies: ['Laravel', 'PHP', 'MySQL', 'HTML5', 'CSS3'],
+    liveUrl: '#',
+    repoUrl: 'https://github.com/RafiALMahmud'
   }
 ]
 
@@ -56,7 +56,7 @@ export default function Projects() {
             Featured Projects
           </h2>
           <p className="text-body font-body text-text-secondary max-w-2xl mx-auto">
-            A showcase of my recent work, demonstrating full-stack development capabilities and real-world problem solving
+            A showcase of my backend development, API design, and machine learning expertise demonstrated through real-world projects
           </p>
         </div>
         
