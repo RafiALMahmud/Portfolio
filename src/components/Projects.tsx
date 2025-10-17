@@ -11,11 +11,11 @@ const projects = [
     repoUrl: 'https://github.com/RafiALMahmud'
   },
   {
-    title: 'COVID-19 Radiography - CycleGAN Augmentation',
-    description: 'A deep learning pipeline for detecting COVID-19 from chest X-ray images using CycleGAN for data augmentation. Implemented and fine-tuned transfer learning models (MobileNetV2, ResNet50) demonstrating improved accuracy with GAN-augmented data. Showcases practical application of machine learning in healthcare.',
-    technologies: ['Python', 'TensorFlow', 'Keras', 'CycleGAN', 'MobileNetV2', 'ResNet50'],
-    liveUrl: 'https://github.com/RafiALMahmud/Corona-virus-detection-Using-Augmented-dataset',
-    repoUrl: 'https://github.com/RafiALMahmud/Corona-virus-detection-Using-Augmented-dataset'
+    title: 'BUCuC - BRAC University Community Club',
+    description: 'A comprehensive community platform for BRAC University featuring event management, member profiles, and community engagement tools. Contributed to the backend architecture and API development ensuring scalable and efficient data handling. The platform connects university members and facilitates seamless community interactions.',
+    technologies: ['Laravel', 'PHP', 'MySQL', 'REST API', 'HTML5', 'CSS3'],
+    liveUrl: 'https://www.bucuc.org/',
+    repoUrl: 'https://github.com/Rudian420/BUCuC-WEB-New'
   },
   {
     title: 'E-Commerce Web Application',

@@ -14,10 +14,6 @@ const skillCategories = [
   {
     categoryName: 'Databases & Tools',
     skills: ['MySQL', 'Git', 'GitHub', 'Postman', 'VS Code']
-  },
-  {
-    categoryName: 'Machine Learning',
-    skills: ['CycleGAN', 'MobileNetV2', 'ResNet50', 'Transfer Learning', 'Data Augmentation']
   }
 ]
 
@@ -87,8 +83,8 @@ export default function Skills() {
             </h3>
             <p className="text-body font-body text-text-secondary max-w-3xl mx-auto">
               Technology evolves rapidly, and so do I. I'm constantly exploring advanced backend architectures, 
-              modern PHP/Laravel patterns, machine learning applications, and scalable system design. 
-              My focus is on building robust, maintainable solutions that solve real-world problems efficiently.
+              modern PHP/Laravel patterns, machine learning applications, RESTful API design, and scalable system design. 
+              My focus is on building robust, maintainable solutions that solve real-world problems efficiently and reliably.
             </p>
           </div>
         </div>
