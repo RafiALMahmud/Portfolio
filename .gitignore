@@ -1,51 +1,36 @@
-# Laravel
-/vendor/
-/node_modules/
-/.env
-/.env.*
-/storage/*.key
-/public/storage/*
-!/public/storage/products/
-!/public/storage/products/**
-/storage/app/public
-/storage/framework/cache/*
-/storage/framework/sessions/*
-/storage/framework/views/*
-/storage/logs/*
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# IDE
-.vscode/
-.idea/
-*.iml
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
 
-# OS
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
 .DS_Store
-Thumbs.db
+*.pem
 
-# Composer & NPM logs
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Misc
-/vendor-bin/**/vendor/
-/.phpunit.cache
-/node_modules
-/public/build
-/public/hot
-/public/storage/*
-!/public/storage/products/
-!/public/storage/products/**
-/storage/*.key
-/vendor
-.env
-.env.backup
-.env.production
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
-/.idea
-/.vscode
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

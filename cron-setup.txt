@@ -1,8 +1,0 @@
-# Laravel Scheduler Cron Job
-# Add this to your server's crontab (crontab -e)
-# This runs Laravel's scheduler every minute, which will execute our hourly cleanup
-
-* * * * * cd /path/to/your/lessence && php artisan schedule:run >> /dev/null 2>&1
-
-
-
