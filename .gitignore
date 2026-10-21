@@ -34,3 +34,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/dist/
+/.ssr/
+.env
+.env.*
+cv.zip
+CV.zip
+/.research/
+/test-results/
+/playwright-report/
