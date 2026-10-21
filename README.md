@@ -1,5 +1,7 @@
 # Rafi Al Mahmud ? Case files
 
+Live site: https://portfolio-9jtk.vercel.app - deployed to the existing project; keep this domain for submitted CV links.
+
 A noir personal portfolio built with Vite, React, TypeScript, Tailwind CSS 4 and React Router. Each known route is prerendered to a separate HTML document with unique metadata. The deployed site is entirely static: no functions, database, runtime secrets, contact form or external build-time content fetches.
 
 ## Run and build

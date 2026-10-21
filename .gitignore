@@ -44,3 +44,4 @@ CV.zip
 /.research/
 /test-results/
 /playwright-report/
+.env*

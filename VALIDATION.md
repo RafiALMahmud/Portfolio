@@ -1,4 +1,4 @@
-# Validation ? 21 October 2026
+# Validation - 21 October 2026
 
 Commit containing application source: `46d93cf`. Documentation and audit scripts were added in `f03045b`.
 
@@ -38,9 +38,19 @@ Commit containing application source: `46d93cf`. Documentation and audit scripts
 
 ## Publication status
 
-The completed source was pushed to `RafiALMahmud/Portfolio`, branch `main`, without rewriting history. The existing Vercel production URL was still serving the previous application at the last check; GitHub had no deployment check or status for the new commit. A Vercel connection or dashboard import/redeployment is required to complete publication. The repository contains the verified static build configuration and exact import instructions in README.md.
+Published on 21 October 2026 to the existing `rafis-projects-d9870471/portfolio-9jtk` project using the authenticated Vercel CLI. The deployment reached `READY` and was assigned to the unchanged production domain:
 
-No production deployment is claimed by these local checks. Re-run Lighthouse against the production URL after deployment to confirm CDN behavior and headers.
+https://portfolio-9jtk.vercel.app
+
+- Published source commit: `c4997ce8b448a919d644f3b0653a3deea429c3cf`.
+- Deployment: `dpl_3H2wUxkid4VTYKiqhc6Wd3cvncti`.
+- Dashboard: https://vercel.com/rafis-projects-d9870471/portfolio-9jtk/3H2wUxkid4VTYKiqhc6Wd3cvncti
+- All 22 public routes returned HTTP 200 with their expected prerendered titles and content.
+- The public CV download matches the local source PDF byte for byte.
+- Hashed JavaScript assets return `Cache-Control: public, max-age=31536000, immutable`.
+- No new project or production domain was created. Existing submitted CV links continue to use the same address.
+
+The Lighthouse scores above are the recorded local production-build results. Public route, CV and cache checks were performed against the deployed production domain.
 
 ## Remaining content item
 
