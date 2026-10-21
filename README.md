@@ -84,6 +84,8 @@ The original Next.js single-page source and obsolete resume PDFs were replaced. 
 - `/404`
 - `*` ? themed missing-file fallback
 
+See [VALIDATION.md](VALIDATION.md) for recorded browser checks, build size, per-route Lighthouse scores and publication status.
+
 ## Sources and remaining work
 
 See [SOURCES.md](SOURCES.md) for the PDF/ZIP/Drive/GitHub audit, conflict resolution, research evaluation context and asset attribution.
