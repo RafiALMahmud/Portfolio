@@ -23,6 +23,13 @@ try {
   const reticle = await page.locator(".cursor-reticle").boundingBox();
   assert(Math.abs(reticle.x + reticle.width / 2 - 420) < 1);
   assert(Math.abs(reticle.y + reticle.height / 2 - 330) < 1);
+  await page.evaluate(() => window.dispatchEvent(new Event("scroll")));
+  assert.equal(
+    await page
+      .locator("html")
+      .evaluate((el) => el.classList.contains("investigator-pointer")),
+    true,
+  );
   assert.equal(
     await page
       .locator(".investigator-cursor")

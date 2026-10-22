@@ -99,6 +99,17 @@ export default function InvestigatorEffects() {
         if (!frame) frame = requestAnimationFrame(render);
       };
 
+      const followScroll = () => {
+        if (!frame && !lens.classList.contains("is-visible")) return;
+        target = document.elementFromPoint(x, y);
+        if (target?.closest(nativePointer)) {
+          hide();
+          return;
+        }
+        // Keep the instrument at its screen position as content moves beneath it.
+        if (!frame) frame = requestAnimationFrame(render);
+      };
+
       const options = { signal: events.signal, passive: true };
       window.addEventListener("pointermove", move, options);
       window.addEventListener(
@@ -109,7 +120,7 @@ export default function InvestigatorEffects() {
         options,
       );
       window.addEventListener("blur", hide, options);
-      window.addEventListener("scroll", hide, options);
+      window.addEventListener("scroll", followScroll, options);
       window.addEventListener(
         "keydown",
         (event) => {
