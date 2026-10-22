@@ -75,3 +75,5 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - `npm run check:assembly` verifies the real CSS timeline, partial SVG drawing, delayed stamp/clip/magnifier, keyboard replay, live reduced motion, mobile visibility timing, touch replay, navigation cleanup and the static fallback. Desktop timeline and mobile screenshots are saved under ignored `test-results/`.
 - Build/type checks and all 22 static route checks pass. Main JavaScript is approximately 69.25 kB gzip; complete static output is approximately 1.23 MB. No dependencies were added.
 - All 44 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors. The cursor/tilt interaction suite also passes after the assembly change.
+- Published source `e1b9867` to the existing Vercel project as `dpl_9wgg5TuBU6dnnestoyUXjo8mU3cg`. Vercel reported `READY`, verified HTTP 200 and assigned the unchanged domain https://portfolio-9jtk.vercel.app.
+- Both the assembly and cursor/tilt suites pass against the public production domain, including desktop/phone replay and reduced-motion behavior.
