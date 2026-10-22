@@ -85,8 +85,6 @@ The original Next.js single-page source and obsolete resume PDFs were replaced. 
 - `/projects/house-price-prediction`
 - `/projects/cse423-project`
 - `/projects/cse330`
-- `/projects/bracu-labmid`
-- `/projects/cse`
 - `/projects/covid-radiography`
 - `/projects/l-essence`
 - `/about`
@@ -103,4 +101,4 @@ See [SOURCES.md](SOURCES.md) for the PDF/ZIP/Drive/GitHub audit, conflict resolu
 
 - TODO: Add an owner-supplied screenshot of SportEvo's authenticated owner schedule to the gallery. Public homepage screenshots are already included. This optional screenshot is not present in the supplied documents.
 
-The WASE datasets, method, results, original figures, supervisor, teaching copy, contact links, both live-site roles and additional CV projects have been filled from the supplied sources. No public WASE repository has been identified, so the research page has no code link. The three sparse coursework repositories remain limited to documented names, languages and source links.
+The WASE datasets, method, results, original figures, supervisor, teaching copy, contact links, both live-site roles and additional CV projects have been filled from the supplied sources. No public WASE repository has been identified, so the research page has no code link. The two sparse coursework repositories remain limited to documented names, languages and source links. The generic CSE and Bracu-Labmid repositories were removed from the site at the owner's request.
