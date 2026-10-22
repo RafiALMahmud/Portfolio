@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { loadPage, routes } from "./routing";
 import "./styles.css";
+import "./spatial.css";
 
 const path = window.location.pathname.replace(/\/$/, "") || "/";
 loadPage(path).then((Page) => {

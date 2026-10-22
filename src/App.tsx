@@ -56,9 +56,35 @@ export default function App({
     Page: initialPage,
   });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [PointerEffects, setPointerEffects] = useState<ComponentType | null>(
+    null,
+  );
   const main = useRef<HTMLElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const previousPath = useRef(initialPath);
+  useEffect(() => {
+    const media = window.matchMedia(
+      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+    );
+    let active = true;
+    const enable = () => {
+      if (!media.matches) return;
+      import("./components/InvestigatorEffects").then(
+        ({ default: Effects }) => {
+          if (active) setPointerEffects(() => Effects);
+        },
+        () => {
+          // Optional decoration: retain the native pointer if its chunk cannot load.
+        },
+      );
+    };
+    enable();
+    media.addEventListener("change", enable);
+    return () => {
+      active = false;
+      media.removeEventListener("change", enable);
+    };
+  }, []);
   useEffect(() => {
     setMenuOpen(false);
     if (loaded.path === pathname) return;
@@ -104,6 +130,7 @@ export default function App({
   return (
     <>
       <Head path={loaded.path} />
+      {PointerEffects && <PointerEffects />}
       <a className="skip-link" href="#main">
         Skip to content
       </a>

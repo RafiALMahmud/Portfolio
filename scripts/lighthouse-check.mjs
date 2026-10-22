@@ -11,9 +11,10 @@ const chrome = await launch({
   chromeFlags: ["--headless", "--no-sandbox", "--disable-dev-shm-usage"],
 });
 const results = [];
+const origin = process.env.PREVIEW_URL || "http://127.0.0.1:4173";
 try {
   for (const path of routes) {
-    const { lhr } = await lighthouse(`http://127.0.0.1:4173${path}`, {
+    const { lhr } = await lighthouse(`${origin}${path}`, {
       port: chrome.port,
       output: "json",
       logLevel: "error",
@@ -39,7 +40,22 @@ try {
         description: a.description,
         details: a.details,
       }));
-    results.push({ path, scores, failures });
+    const metrics = Object.fromEntries(
+      [
+        "first-contentful-paint",
+        "largest-contentful-paint",
+        "total-blocking-time",
+        "cumulative-layout-shift",
+        "speed-index",
+      ].map((id) => [id, lhr.audits[id].numericValue]),
+    );
+    results.push({
+      path,
+      scores,
+      metrics,
+      warnings: lhr.runWarnings,
+      failures,
+    });
     await fs.mkdir("test-results", { recursive: true });
     await fs.writeFile(
       "test-results/lighthouse-progress.json",

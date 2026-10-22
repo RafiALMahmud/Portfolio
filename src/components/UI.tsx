@@ -151,7 +151,8 @@ export function CaseArt({
 }
 export function LiveCard({ site }: { site: LiveSite }) {
   return (
-    <article className="panel live-card reveal">
+    <article className="panel live-card spatial-card reveal" data-tilt>
+      <span className="panel-glare" aria-hidden="true" />
       <Link
         className="card-visual"
         to={"/live/" + site.slug}
@@ -202,7 +203,8 @@ export function ProjectCard({
   index: number;
 }) {
   return (
-    <article className="panel project-card reveal">
+    <article className="panel project-card spatial-card reveal" data-tilt>
+      <span className="panel-glare" aria-hidden="true" />
       <div className="card-eyebrow">
         <span>FILE / {String(index + 3).padStart(3, "0")}</span>
         <span>

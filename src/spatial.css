@@ -1,0 +1,397 @@
+/* Original detective instruments and shallow 3D surfaces. No canvas/WebGL. */
+.investigator-cursor {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  contain: layout style;
+}
+.investigator-cursor.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+.cursor-instrument {
+  position: absolute;
+  left: -21px;
+  top: -21px;
+  width: 72px;
+  height: 72px;
+  transform-origin: 21px 21px;
+  transform: perspective(180px) rotateX(12deg) rotateY(-12deg)
+    rotateZ(calc(-12deg + var(--cursor-roll, 0deg)));
+  transition:
+    rotate 0.2s,
+    scale 0.15s;
+  filter: drop-shadow(3px 5px 3px #0009);
+}
+.cursor-lens {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 42px;
+  height: 42px;
+  border: 3px solid #bcb5a9;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ede6da32, #ede6da03 45%, #c1121f09);
+  box-shadow:
+    inset 0 0 0 1px #0b0b0d,
+    inset 0 0 0 2px #ede6da40,
+    2px 3px 0 #4a4541,
+    3px 4px 0 #0b0b0d;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+.cursor-lens::before {
+  content: "";
+  position: absolute;
+  width: 17px;
+  height: 9px;
+  left: 4px;
+  top: 3px;
+  border-top: 2px solid #ede6da9c;
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+.cursor-reticle {
+  position: absolute;
+  inset: 13px;
+  border: 1px solid #ede6da99;
+  border-radius: 50%;
+}
+.cursor-reticle::before,
+.cursor-reticle::after {
+  content: "";
+  position: absolute;
+  background: var(--paper);
+}
+.cursor-reticle::before {
+  width: 10px;
+  height: 1px;
+  left: -2px;
+  top: 2px;
+}
+.cursor-reticle::after {
+  height: 10px;
+  width: 1px;
+  top: -2px;
+  left: 2px;
+}
+.cursor-neck {
+  position: absolute;
+  left: 31px;
+  top: 31px;
+  width: 10px;
+  height: 15px;
+  transform: rotate(-45deg);
+  background: linear-gradient(90deg, #504b47, #d0c7b8 46%, #6c635c);
+}
+.cursor-handle {
+  position: absolute;
+  left: 43px;
+  top: 39px;
+  width: 11px;
+  height: 29px;
+  transform: rotate(-45deg);
+  border-radius: 3px 3px 5px 5px;
+  border: 1px solid #635450;
+  background: linear-gradient(
+    90deg,
+    #330b10,
+    #c1121f 40%,
+    #680e17 75%,
+    #27090c
+  );
+  box-shadow: 2px 1px 0 #140c0f;
+}
+.cursor-handle::after {
+  content: "";
+  position: absolute;
+  inset: 5px 1px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    #0b0b0d60 3px 4px
+  );
+}
+.cursor-signal {
+  position: absolute;
+  top: 39px;
+  left: -20px;
+  white-space: nowrap;
+  font:
+    6px "IBM Plex Mono",
+    monospace;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+.cursor-signal::after {
+  content: "INSPECT";
+}
+.is-interactive .cursor-lens {
+  border-color: var(--red);
+  box-shadow:
+    inset 0 0 0 1px #0b0b0d,
+    inset 0 0 0 2px #ede6da50,
+    2px 3px 0 #760e17,
+    0 0 15px #c1121f30;
+}
+.is-interactive .cursor-signal::after {
+  content: "OPEN";
+  color: var(--paper);
+}
+.is-pressed .cursor-instrument {
+  scale: 0.88;
+}
+.dossier-stage {
+  position: relative;
+  perspective: 1100px;
+  isolation: isolate;
+}
+.desk-loupe {
+  position: absolute;
+  width: 144px;
+  height: 196px;
+  right: -27px;
+  bottom: -37px;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(10px 15px 8px #0009);
+}
+.desk-loupe-object {
+  position: relative;
+  width: 140px;
+  height: 174px;
+  transform: perspective(500px) rotateX(21deg) rotateY(-22deg) rotateZ(-25deg);
+  transform-style: preserve-3d;
+}
+.desk-loupe-rim {
+  position: absolute;
+  width: 104px;
+  height: 104px;
+  border: 8px solid #b3aca0;
+  border-radius: 50%;
+  background: #171516;
+  box-shadow:
+    inset 0 0 0 2px #5a5350,
+    inset 0 0 0 4px #ece2cc55,
+    0 0 0 1px #efe3cb,
+    3px 5px 0 #4c4542,
+    6px 8px 0 #1e1b1d;
+}
+.desk-loupe-rim::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #fff8f2aa;
+  border-left-color: #fff8f280;
+  transform: rotate(-15deg);
+}
+.desk-loupe-glass {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  overflow: hidden;
+  color: #bcb5a9;
+  background: linear-gradient(125deg, #ede6da30, #ede6da03 45%, #c1121f0c);
+}
+.desk-loupe-glass svg {
+  width: 100%;
+  height: 100%;
+}
+.desk-loupe-neck {
+  position: absolute;
+  top: 88px;
+  left: 43px;
+  width: 19px;
+  height: 30px;
+  background: linear-gradient(90deg, #4a4540, #d0c6b3 45%, #504740);
+  box-shadow: 4px 3px 0 #201c1c;
+}
+.desk-loupe-handle {
+  position: absolute;
+  top: 109px;
+  left: 39px;
+  width: 27px;
+  height: 67px;
+  border-radius: 5px 5px 11px 11px;
+  background: linear-gradient(
+    90deg,
+    #320a10,
+    #9c111e 30%,
+    #c1121f 45%,
+    #510b13 82%,
+    #1c0a0e
+  );
+  border: 1px solid #6c4141;
+  box-shadow:
+    4px 3px 0 #1c1013,
+    inset 0 1px 0 #df85804a;
+}
+.desk-loupe-handle span {
+  position: absolute;
+  inset: 9px 3px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 5px,
+    #0b0b0d50 5px 6px
+  );
+}
+.loupe-caption {
+  position: absolute;
+  bottom: -5px;
+  left: -14px;
+  font:
+    6px "IBM Plex Mono",
+    monospace;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.panel-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    320px circle at var(--shine-x, 50%) var(--shine-y, 50%),
+    #ede6da16,
+    transparent 65%
+  );
+  transition: opacity 0.25s;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .investigator-cursor {
+    display: block;
+  }
+  html.investigator-pointer,
+  html.investigator-pointer * {
+    cursor: none !important;
+  }
+  .spatial-card[data-tilt] {
+    transform: perspective(1000px) rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg)) translateY(var(--tilt-lift, 0px));
+    transition:
+      transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 0.2s,
+      box-shadow 0.3s;
+  }
+  .spatial-card.is-tilting {
+    transition:
+      transform 0.12s ease-out,
+      border-color 0.2s,
+      box-shadow 0.3s;
+    border-color: #635450;
+    box-shadow:
+      0 18px 32px -22px #000,
+      0 0 0 1px #ede6da06;
+  }
+  .spatial-card.is-tilting .panel-glare {
+    opacity: 1;
+  }
+  .spatial-card.is-visible {
+    animation-name: spatial-reveal;
+  }
+  .dossier-stage .dossier {
+    transform-style: preserve-3d;
+    transform: rotateX(var(--tilt-x, -3deg)) rotateY(var(--tilt-y, -6deg))
+      rotateZ(3deg);
+    transition:
+      transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 0.4s;
+  }
+  .dossier-stage.is-tilting .dossier {
+    transition-duration: 0.15s;
+    box-shadow:
+      14px 22px 0 #ffffff03,
+      -9px 12px 0 #171617,
+      0 30px 50px -30px #000;
+  }
+  .dossier-stage .dossier::before {
+    transform: translateZ(-18px) rotate(-5deg);
+  }
+  .dossier-stage .dossier-inner {
+    transform: translateZ(10px);
+    transform-style: preserve-3d;
+  }
+  .dossier-stage .dossier-graphic {
+    transform: translateZ(16px);
+    transform-style: preserve-3d;
+  }
+  .dossier-stage .dossier-stamp {
+    transform: translateZ(26px) rotate(-16deg);
+  }
+  .dossier-stage .paperclip {
+    transform: translateZ(30px) rotate(9deg);
+  }
+  .desk-loupe-object {
+    animation: loupe-float 7s ease-in-out infinite;
+  }
+}
+@keyframes spatial-reveal {
+  from {
+    opacity: 0.5;
+    translate: 0 12px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes loupe-float {
+  0%,
+  100% {
+    transform: perspective(500px) translateY(0) rotateX(21deg) rotateY(-22deg)
+      rotateZ(-25deg);
+  }
+  50% {
+    transform: perspective(500px) translateY(-9px) rotateX(16deg)
+      rotateY(-14deg) rotateZ(-21deg);
+  }
+}
+@media (max-width: 700px) {
+  .dossier-stage {
+    padding-bottom: 70px;
+  }
+  .desk-loupe {
+    right: calc(12.5% - 10px);
+    bottom: 10px;
+    scale: 0.45;
+    transform-origin: bottom right;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .investigator-cursor {
+    display: none !important;
+  }
+  html.investigator-pointer,
+  html.investigator-pointer * {
+    cursor: revert !important;
+  }
+  .spatial-card,
+  .spatial-card:hover {
+    transform: none;
+  }
+  .panel-glare {
+    display: none;
+  }
+}
+@media print {
+  .investigator-cursor,
+  .desk-loupe,
+  .panel-glare {
+    display: none !important;
+  }
+  .spatial-card {
+    transform: none !important;
+  }
+}

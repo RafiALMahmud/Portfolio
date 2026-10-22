@@ -9,6 +9,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "check": "node scripts/check-build.mjs",
     "check:browser": "node scripts/browser-check.mjs",
+    "check:effects": "node scripts/effects-check.mjs",
     "check:lighthouse": "node scripts/lighthouse-check.mjs"
   },
   "dependencies": {

@@ -22,7 +22,8 @@ Dataset roles are kept distinct: RTTS and Foggy Cityscapes for WASE adaptation; 
 - Public MangoStudents and SportEvo homepage screenshots captured 21 October 2026, saved in responsive WebP sizes. No authenticated pages or customer data were accessed.
 - Thesis figure 4.1: PDF page 41. Figure 4.2: PDF page 49. Figure 4.3 examples: PDF page 50. These are optimized WebP extracts; captions preserve provenance.
 - Playfair Display, Inter and IBM Plex Mono are self-hosted Latin WOFF2 subsets, originally served by Google Fonts. SIL Open Font License texts accompany them in `public/fonts/`.
-- The dossier illustration, favicon and Open Graph image were drawn for this site. No television branding or character images are used.
+- The dossier illustration, magnifying-glass cursor, decorative desk magnifier, favicon and Open Graph image were drawn for this site. No television branding or character images are used.
+- The 22 October 2026 interaction update was inspired by the pointer-following companion on https://quagmire02.github.io/. The magnifiers and 3D effects are original CSS/SVG work; no models or other assets were copied.
 
 ## Privacy and original project
 

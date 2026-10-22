@@ -20,6 +20,8 @@ The production build type-checks, creates the client bundle, builds a temporary 
 
 Fonts and optimized WebP images are self-hosted. Hashed assets receive immutable caching on Vercel. The latest downloaded Drive CV is `public/cv.pdf`; it is not fetched during builds.
 
+The detective effects use an original magnifying-glass cursor, pointer-responsive case cards, a layered dossier and a floating desk magnifier. They use SVG/CSS 3D and one event-driven pointer handler, with no graphics library or continuous JavaScript render loop. Touch devices retain normal navigation, keyboard use restores the native cursor, and reduced-motion preferences disable animated pointer and tilt effects.
+
 ## Verify
 
 With `npm run preview` running in another terminal:
@@ -27,6 +29,7 @@ With `npm run preview` running in another terminal:
 ```sh
 npx playwright install chromium
 npm run check:browser
+npm run check:effects
 npm run check:lighthouse
 ```
 
@@ -40,6 +43,7 @@ The browser check covers every route at 1440px and 390px, accessibility rules, o
 - `src/routing.ts`: route generation, page loaders and unique titles/descriptions.
 - `src/pages/`: page-specific presentations; `src/components/UI.tsx`: shared case-file components.
 - `src/styles.css`: Tailwind theme, local font declarations, layout, motion, mobile and print styles.
+- `src/spatial.css` and `src/components/InvestigatorEffects.tsx`: detective cursor, 3D surfaces and pointer/motion behavior. `DeskLoupe.tsx` draws the decorative hero magnifier.
 
 Add a project object with a unique slug, verified description, tags, stack and source note. A deep-linkable project page and sitemap entry are generated automatically. Add a live-site object to generate its case page. For a new page type, add a loader and route metadata in `src/routing.ts`, then implement its component. Run the build and checks before pushing. Keep unknown facts out of the public copy and mark genuine source gaps with `TODO` comments.
 
