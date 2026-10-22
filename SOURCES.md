@@ -19,6 +19,7 @@ Dataset roles are kept distinct: RTTS and Foggy Cityscapes for WASE adaptation; 
 
 ## Assets
 
+- Owner-supplied `wase-live.mp4` added on 22 October 2026, copied unchanged to `public/videos/wase-live.mp4` (1,841,110 bytes, SHA-256 `ae19d5377859e7185495106f79a93f1a4da113ef040fcb67ea78e17c5265171d`). Chromium confirms 15 seconds, 1102 by 490 pixels and no audio track. `public/images/wase/live-demo.webp` is an extracted frame from that clip; the caption describes the visible foggy drive and frame-rate overlay without adding performance claims.
 - Public MangoStudents and SportEvo homepage screenshots captured 21 October 2026, saved in responsive WebP sizes. No authenticated pages or customer data were accessed.
 - Thesis figure 4.1: PDF page 41. Figure 4.2: PDF page 49. Figure 4.3 examples: PDF page 50. These are optimized WebP extracts; captions preserve provenance.
 - Playfair Display, Inter and IBM Plex Mono are self-hosted Latin WOFF2 subsets, originally served by Google Fonts. SIL Open Font License texts accompany them in `public/fonts/`.

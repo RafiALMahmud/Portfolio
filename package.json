@@ -13,6 +13,7 @@
     "check:assembly": "node scripts/assembly-check.mjs",
     "check:navigation": "node scripts/navigation-check.mjs",
     "check:headline": "node scripts/headline-check.mjs",
+    "check:cards-video": "node scripts/cards-video-check.mjs",
     "check:lighthouse": "node scripts/lighthouse-check.mjs"
   },
   "dependencies": {

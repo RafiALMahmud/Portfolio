@@ -63,28 +63,13 @@ try {
     () =>
       document.querySelector(".dossier-stage")?.dataset.assembly === "complete",
   );
-  const replay = page.getByRole("button", {
-    name: "Replay assembly of the case file",
-    exact: true,
-  });
-  await replay.focus();
-  await page.keyboard.press("Enter");
-  await page.waitForFunction(
-    () =>
-      document.querySelector(".dossier-stage")?.dataset.assembly === "building",
-  );
-  assert.equal(
-    await page
-      .locator(".dossier-stamp")
-      .evaluate((el) => getComputedStyle(el).opacity),
-    "0",
-  );
+  assert.equal(await page.locator(".assembly-replay").count(), 0);
+  await page.reload({ waitUntil: "networkidle" });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.waitForFunction(
     () =>
       document.querySelector(".dossier-stage")?.dataset.assembly === "complete",
   );
-  assert(await page.locator(".assembly-replay").isDisabled());
   assert.equal(
     await stage.evaluate((el) => el.getAnimations({ subtree: true }).length),
     0,
@@ -126,12 +111,9 @@ try {
       document.querySelector(".dossier-stage")?.dataset.assembly === "complete",
   );
   await phone.screenshot({ path: "test-results/assembly-mobile.png" });
-  await phone
-    .getByRole("button", {
-      name: "Replay assembly of the case file",
-      exact: true,
-    })
-    .tap();
+  assert.equal(await phone.locator(".assembly-replay").count(), 0);
+  await phone.reload({ waitUntil: "networkidle" });
+  await phone.locator(".dossier-stage").scrollIntoViewIfNeeded();
   await phone.waitForFunction(
     () =>
       document.querySelector(".dossier-stage")?.dataset.assembly === "building",
@@ -157,7 +139,7 @@ try {
   await staticContext.close();
   assert.deepEqual(errors, []);
   console.log(
-    "Passed assembly timeline, SVG drawing, stamp/clip/loupe sequence, keyboard replay, live reduced motion, mobile in-view start, touch replay, navigation cleanup and static fallback.",
+    "Passed assembly timeline, SVG drawing, stamp/clip/loupe sequence, no replay control, live reduced motion, mobile in-view start, navigation cleanup and static fallback.",
   );
 } finally {
   await browser.close();

@@ -531,6 +531,21 @@ p {
   border-color: #635450;
   transform: translateY(-3px);
 }
+.card-file-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.panel:focus-within {
+  outline: 2px solid var(--paper);
+  outline-offset: 3px;
+}
+.card-actions a,
+.project-card .text-link {
+  position: relative;
+  z-index: 2;
+}
 .card-visual {
   display: block;
   border-bottom: 1px solid var(--line);
@@ -1504,6 +1519,26 @@ p {
   padding: 20px;
   margin-block: 25px;
   color-scheme: light;
+}
+.research-video {
+  margin-block: 24px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: #111113;
+}
+.research-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1102 / 490;
+  background: #000;
+  color-scheme: dark;
+}
+.research-video figcaption {
+  margin-top: 12px;
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
 }
 .research-figure img {
   width: 100%;

@@ -32,6 +32,7 @@ export default function Wase() {
             </dd>
           </dl>
           <nav aria-label="Research sections">
+            <a href="#demo">Live demonstration</a>
             <a href="#problem">The problem</a>
             <a href="#approach">The approach</a>
             <a href="#data">Data & evaluation</a>
@@ -54,6 +55,34 @@ export default function Wase() {
               <p>Inference time. Hardware and protocol affect timing.</p>
             </div>
           </div>
+          <section id="demo">
+            <h2>WASE in motion.</h2>
+            <p>A live demonstration on foggy road footage.</p>
+            <figure className="research-video">
+              <video
+                controls
+                playsInline
+                preload="none"
+                poster="/images/wase/live-demo.webp"
+                width={1102}
+                height={490}
+                aria-label="WASE live demonstration on foggy road footage"
+                aria-describedby="wase-video-caption"
+              >
+                <source src="/videos/wase-live.mp4" type="video/mp4" />
+                Your browser does not support embedded video. Use the download
+                link below.
+              </video>
+              <figcaption id="wase-video-caption">
+                A 15-second silent clip of a drive through fog. Trees and road
+                markings fade into the mist ahead; the WASE Live overlay
+                displays the running frame rate.
+              </figcaption>
+            </figure>
+            <a className="text-link" href="/videos/wase-live.mp4" download>
+              Download video (MP4, 1.8 MB)
+            </a>
+          </section>
           <section id="problem">
             <h2>The problem.</h2>
             <p>{research.problem}</p>

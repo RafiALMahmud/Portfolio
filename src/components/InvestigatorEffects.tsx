@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 const interactive = "a, button, summary, [role='button']";
 const nativePointer =
-  "input, textarea, select, [contenteditable], iframe, object";
+  "input, textarea, select, [contenteditable], iframe, object, video, audio";
 
 /** Pointer decoration and shallow CSS 3D, with no WebGL or render loop at rest. */
 export default function InvestigatorEffects() {

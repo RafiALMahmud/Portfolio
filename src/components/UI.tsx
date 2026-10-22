@@ -153,12 +153,7 @@ export function LiveCard({ site }: { site: LiveSite }) {
   return (
     <article className="panel live-card spatial-card reveal" data-tilt>
       <span className="panel-glare" aria-hidden="true" />
-      <Link
-        className="card-visual"
-        to={"/live/" + site.slug}
-        tabIndex={-1}
-        aria-hidden="true"
-      >
+      <div className="card-visual" aria-hidden="true">
         {site.screenshots[0] ? (
           <img
             src={site.screenshots[0].src}
@@ -172,14 +167,16 @@ export function LiveCard({ site }: { site: LiveSite }) {
         ) : (
           <CaseArt kind={site.slug} />
         )}
-      </Link>
+      </div>
       <div className="card-content">
         <div className="card-eyebrow">
           <span>LIVE CASE / {site.number}</span>
           <Stamp>LIVE</Stamp>
         </div>
         <h3>
-          <Link to={"/live/" + site.slug}>{site.title}</Link>
+          <Link className="card-file-link" to={"/live/" + site.slug}>
+            {site.title}
+          </Link>
         </h3>
         <p>{site.description}</p>
         <Tags items={site.stack.slice(0, 4)} />
@@ -214,7 +211,7 @@ export function ProjectCard({
         </span>
       </div>
       <h3>
-        <Link to={"/projects/" + project.slug}>
+        <Link className="card-file-link" to={"/projects/" + project.slug}>
           {project.title}
           <Arrow />
         </Link>

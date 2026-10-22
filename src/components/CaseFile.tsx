@@ -1,20 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import DeskLoupe from "./DeskLoupe";
 
-/** One short, replayable assembly; the server-rendered file is always complete. */
+/** One short assembly; the server-rendered file is always complete. */
 export default function CaseFile() {
   const stage = useRef<HTMLDivElement>(null);
   const [phase, setPhase] = useState<"ready" | "building" | "complete">(
     "ready",
   );
-  const [motion, setMotion] = useState(false);
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let observer: IntersectionObserver | undefined;
     const configure = () => {
       observer?.disconnect();
-      setMotion(!preference.matches);
       if (preference.matches) {
         setPhase("complete");
         return;
@@ -176,43 +175,11 @@ export default function CaseFile() {
             </div>
           </div>
           <span className="paperclip" aria-hidden="true" />
+          <Link className="dossier-file-link" to="/about">
+            <span className="sr-only">Open developer profile case file</span>
+          </Link>
         </div>
         <DeskLoupe />
-      </div>
-      <div className="case-file-controls mono">
-        <span aria-hidden="true">01 / THE PROFILE</span>
-        <button
-          type="button"
-          className="assembly-replay"
-          disabled={!motion || phase === "building"}
-          onClick={() => setPhase("building")}
-          aria-label={
-            !motion
-              ? "Motion reduced: case file animation disabled"
-              : phase === "building"
-                ? "Assembling case file"
-                : "Replay assembly of the case file"
-          }
-        >
-          <svg
-            viewBox="0 0 16 16"
-            width="12"
-            height="12"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M3 6a5 5 0 1 1 0 5M3 2v4h4"
-              stroke="currentColor"
-              strokeWidth="1.2"
-            />
-          </svg>
-          {!motion
-            ? "MOTION REDUCED"
-            : phase === "building"
-              ? "ASSEMBLING"
-              : "REPLAY ASSEMBLY"}
-        </button>
       </div>
     </div>
   );
