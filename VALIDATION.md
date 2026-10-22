@@ -67,3 +67,11 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - Performance measurements varied on the local machine. A controlled mobile Lighthouse comparison of the previous and new home pages scored 93 and 94 respectively; both scored 100 for accessibility, best practices and SEO. This does not replace the historical per-route results above or claim a new 95+ performance result for every page.
 - Deployed to the original project as `dpl_5oToapuapTbj4n2K7hH4WeH8qG7s`; Vercel reported `READY` and verified HTTP 200 at https://portfolio-9jtk.vercel.app. The CV domain is unchanged.
 - The effects check also passes against the public production URL, including cursor tracking through navigation and scrolling, 3D tilt, click activation, keyboard/reduced-motion fallback and touch navigation.
+
+## Case-file assembly update - 22 October 2026
+
+- Added a four-second, in-view hero assembly: layered papers, SVG profile drawing, sequential facts, red stamp impact, paperclip placement and magnifier arrival. Existing pointer tilt uses a separate transform from assembly motion.
+- Added keyboard/touch replay, live reduced-motion cancellation and effect/timer cleanup. The complete file is prerendered and remains visible with JavaScript disabled.
+- `npm run check:assembly` verifies the real CSS timeline, partial SVG drawing, delayed stamp/clip/magnifier, keyboard replay, live reduced motion, mobile visibility timing, touch replay, navigation cleanup and the static fallback. Desktop timeline and mobile screenshots are saved under ignored `test-results/`.
+- Build/type checks and all 22 static route checks pass. Main JavaScript is approximately 69.25 kB gzip; complete static output is approximately 1.23 MB. No dependencies were added.
+- All 44 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors. The cursor/tilt interaction suite also passes after the assembly change.

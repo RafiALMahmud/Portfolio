@@ -10,6 +10,7 @@
     "check": "node scripts/check-build.mjs",
     "check:browser": "node scripts/browser-check.mjs",
     "check:effects": "node scripts/effects-check.mjs",
+    "check:assembly": "node scripts/assembly-check.mjs",
     "check:lighthouse": "node scripts/lighthouse-check.mjs"
   },
   "dependencies": {
