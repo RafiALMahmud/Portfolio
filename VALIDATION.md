@@ -89,3 +89,5 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - Removed CSE and Bracu-Labmid from the project data, rendered cards, generated detail pages and sitemap at the owner's request. Cse330 and Cse423-Project remain selected. The archive now contains 11 projects.
 - Build/type checks and all 20 remaining static route checks pass. Browser checks confirm both removed URLs display the missing-file page, the project links are absent and the retained coursework projects remain visible.
 - About navigation recovery still passes on desktop and mobile with the updated project list.
+- Published source `3876dd5` (including navigation fix `474925b`) as `dpl_2CugMjMgH2g8nNkTYmWLgDezx8mu`. Vercel reported `READY` and verified HTTP 200 at the unchanged production domain.
+- Public checks confirm 11 project cards, both removed links/detail pages/sitemap URLs absent, and successful About navigation recovery on desktop and mobile at https://portfolio-9jtk.vercel.app.
