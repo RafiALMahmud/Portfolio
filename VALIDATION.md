@@ -55,3 +55,15 @@ The Lighthouse scores above are the recorded local production-build results. Pub
 ## Remaining content item
 
 The optional authenticated SportEvo owner-schedule screenshot needs an owner-supplied image. All public homepage screenshots and WASE thesis figures are already included.
+
+## Detective interaction update - 22 October 2026
+
+Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
+
+- Added an original metallic magnifying-glass pointer, interactive card tilt/glare, a layered hero dossier and a decorative 3D desk magnifier.
+- No graphics library, WebGL renderer, external models or image dependencies were added. Pointer code is a separate 1.28 kB gzip chunk, loaded only for fine pointers with motion enabled. The main JavaScript chunk is approximately 69.26 kB gzip; complete static output is approximately 1.22 MB.
+- Build, type checks and all 22 static route checks pass. All 44 desktop/mobile route and accessibility checks pass.
+- The effects check covers cursor accuracy, link activation, click feedback, 3D surfaces, keyboard restoration, live reduced-motion changes, blur, print and touch navigation. Mobile decorative art is placed below profile facts rather than over readable content.
+- Performance measurements varied on the local machine. A controlled mobile Lighthouse comparison of the previous and new home pages scored 93 and 94 respectively; both scored 100 for accessibility, best practices and SEO. This does not replace the historical per-route results above or claim a new 95+ performance result for every page.
+- Deployed to the original project as `dpl_5oToapuapTbj4n2K7hH4WeH8qG7s`; Vercel reported `READY` and verified HTTP 200 at https://portfolio-9jtk.vercel.app. The CV domain is unchanged.
+- The effects check also passes against the public production URL, including cursor tracking through navigation and scrolling, 3D tilt, click activation, keyboard/reduced-motion fallback and touch navigation.
