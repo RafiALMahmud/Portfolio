@@ -91,3 +91,10 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - About navigation recovery still passes on desktop and mobile with the updated project list.
 - Published source `3876dd5` (including navigation fix `474925b`) as `dpl_2CugMjMgH2g8nNkTYmWLgDezx8mu`. Vercel reported `READY` and verified HTTP 200 at the unchanged production domain.
 - Public checks confirm 11 project cards, both removed links/detail pages/sitemap URLs absent, and successful About navigation recovery on desktop and mobile at https://portfolio-9jtk.vercel.app.
+
+## Forming headline update - 22 October 2026
+
+- Inspected the supplied reference site in Chromium. Added an original 2.6-second letter-formation effect to the existing hero headline: scattered, blurred glyphs and small grains settle into the original text, font and red accents. It runs once per home-page mount with no continuous JavaScript animation loop or new dependencies.
+- The complete heading is prerendered with a single accessible name. Reduced motion cancels the effect immediately; JavaScript-disabled pages retain visible text. Layout is reserved before, during and after formation.
+- `npm run check:headline` passes at 1440, 390 and 320 pixels, including actual CSS timeline progression, final text visibility, identical heading dimensions, no horizontal overflow, live reduced-motion changes, zero WCAG accessibility violations and static fallback. Narrow-screen checks also exposed and resolved decorative magnifier overflow during the existing assembly entrance.
+- Build/type checks, all 20 static route checks, About navigation recovery, case-file assembly and cursor/tilt suites pass. Main JavaScript is approximately 69.20 kB gzip; the home route is approximately 2.99 kB gzip; complete output is approximately 1.22 MB.

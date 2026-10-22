@@ -1,4 +1,71 @@
 /* Original detective instruments and shallow 3D surfaces. No canvas/WebGL. */
+.forming-headline {
+  overflow: clip;
+  overflow-clip-margin: 0.2em;
+}
+.forming-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.forming-letter {
+  display: inline-block;
+  position: relative;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .forming-headline[data-forming="true"] .forming-letter {
+    animation: letter-form 0.85s var(--letter-delay)
+      cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .forming-headline[data-forming="true"] .forming-letter::after {
+    content: "";
+    position: absolute;
+    top: 48%;
+    left: 48%;
+    width: 1px;
+    height: 1px;
+    background: currentColor;
+    box-shadow:
+      -9px -14px 0 currentColor,
+      12px 5px 0 currentColor,
+      5px -18px 0 currentColor;
+    pointer-events: none;
+    animation: letter-grain 0.7s var(--letter-delay) ease-out both;
+  }
+}
+@keyframes letter-form {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: perspective(500px)
+      translate3d(var(--letter-x), var(--letter-y), -70px)
+      rotate(var(--letter-turn)) scale(0.75);
+  }
+  35% {
+    opacity: 0.6;
+  }
+  75% {
+    opacity: 1;
+    filter: blur(0.4px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+@keyframes letter-grain {
+  0% {
+    opacity: 0;
+    transform: translate(var(--letter-x), var(--letter-y)) scale(2);
+  }
+  25% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.2);
+  }
+}
 .investigator-cursor {
   display: none;
   position: fixed;
@@ -581,6 +648,10 @@
   }
 }
 @media (max-width: 700px) {
+  .case-file {
+    overflow: clip;
+    overflow-clip-margin: 16px;
+  }
   .case-file-controls {
     margin: 0 auto;
     width: 85%;

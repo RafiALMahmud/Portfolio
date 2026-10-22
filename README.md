@@ -24,6 +24,8 @@ The detective effects use an original magnifying-glass cursor, pointer-responsiv
 
 The home-page case file assembles in four seconds when most of it enters view: paper layers settle, the profile draws in, details appear, and the stamp, paperclip and magnifier land. The replay button works with keyboard and touch. Reduced motion and pages without JavaScript show the complete file immediately.
 
+The hero headline forms from scattered, blurred letters and small grains in a single 2.6-second sequence. Its layout is reserved throughout, with one complete accessible heading. Reduced motion and JavaScript-disabled pages show the full text immediately.
+
 ## Verify
 
 With `npm run preview` running in another terminal:
@@ -34,6 +36,7 @@ npm run check:browser
 npm run check:effects
 npm run check:assembly
 npm run check:navigation
+npm run check:headline
 npm run check:lighthouse
 ```
 
@@ -49,6 +52,7 @@ The browser check covers every route at 1440px and 390px, accessibility rules, o
 - `src/styles.css`: Tailwind theme, local font declarations, layout, motion, mobile and print styles.
 - `src/spatial.css` and `src/components/InvestigatorEffects.tsx`: detective cursor, 3D surfaces and pointer/motion behavior. `DeskLoupe.tsx` draws the decorative hero magnifier.
 - `src/components/CaseFile.tsx`: in-view case-file assembly, replay and motion-preference lifecycle.
+- `src/components/FormingHeadline.tsx`: finite letter formation with static and reduced-motion fallbacks.
 
 Add a project object with a unique slug, verified description, tags, stack and source note. A deep-linkable project page and sitemap entry are generated automatically. Add a live-site object to generate its case page. For a new page type, add a loader and route metadata in `src/routing.ts`, then implement its component. Run the build and checks before pushing. Keep unknown facts out of the public copy and mark genuine source gaps with `TODO` comments.
 

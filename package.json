@@ -12,6 +12,7 @@
     "check:effects": "node scripts/effects-check.mjs",
     "check:assembly": "node scripts/assembly-check.mjs",
     "check:navigation": "node scripts/navigation-check.mjs",
+    "check:headline": "node scripts/headline-check.mjs",
     "check:lighthouse": "node scripts/lighthouse-check.mjs"
   },
   "dependencies": {

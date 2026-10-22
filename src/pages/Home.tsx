@@ -3,6 +3,7 @@ import { home, person } from "../content";
 import { projects } from "../data/projects";
 import { liveSites } from "../data/liveSites";
 import CaseFile from "../components/CaseFile";
+import FormingHeadline from "../components/FormingHeadline";
 import {
   Arrow,
   ContactCTA,
@@ -27,12 +28,7 @@ export default function Home() {
             <p className="eyebrow mono">
               <span className="red-line" /> CASE FILE · RAFI AL MAHMUD
             </p>
-            <h1>
-              Everybody’s
-              <br />
-              code <em>lies.</em>
-              <br />I read the logs<span className="period">.</span>
-            </h1>
+            <FormingHeadline />
             <p className="hero-subline">{home.subline}</p>
             <div className="hero-actions">
               <Link className="button primary" to="/live">
