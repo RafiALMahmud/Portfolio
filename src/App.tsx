@@ -89,9 +89,15 @@ export default function App({
     setMenuOpen(false);
     if (loaded.path === pathname) return;
     let current = true;
-    loadPage(pathname).then((Page) => {
-      if (current) setLoaded({ path: pathname, Page });
-    });
+    loadPage(pathname)
+      .then((Page) => {
+        if (current) setLoaded({ path: pathname, Page });
+      })
+      .catch(() => {
+        // An open tab can reference a chunk removed by a new deployment.
+        // The URL already points to the destination; load its fresh HTML.
+        if (current) window.location.reload();
+      });
     return () => {
       current = false;
     };

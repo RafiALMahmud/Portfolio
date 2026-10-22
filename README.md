@@ -33,6 +33,7 @@ npx playwright install chromium
 npm run check:browser
 npm run check:effects
 npm run check:assembly
+npm run check:navigation
 npm run check:lighthouse
 ```
 

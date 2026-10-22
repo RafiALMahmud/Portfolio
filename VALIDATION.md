@@ -77,3 +77,9 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - All 44 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors. The cursor/tilt interaction suite also passes after the assembly change.
 - Published source `e1b9867` to the existing Vercel project as `dpl_9wgg5TuBU6dnnestoyUXjo8mU3cg`. Vercel reported `READY`, verified HTTP 200 and assigned the unchanged domain https://portfolio-9jtk.vercel.app.
 - Both the assembly and cursor/tilt suites pass against the public production domain, including desktop/phone replay and reduced-motion behavior.
+
+## About navigation recovery - 22 October 2026
+
+- A fresh production session opened About correctly. Route imports previously had no rejection handler, so a tab referencing a removed deployment asset could change its URL while leaving the previous page visible.
+- Failed route imports now fall back to a full navigation to the requested URL, fetching its current prerendered HTML and assets. Healthy navigation remains client-side. Initial boot does not enter a reload loop.
+- `npm run check:navigation` deliberately returns a 404 for the first About module request on desktop and mobile. Both recover with one document load, render About, and then navigate through the home-page About link without another document load or uncaught error.
