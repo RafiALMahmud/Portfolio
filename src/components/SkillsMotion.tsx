@@ -1,13 +1,47 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { skills } from "../content";
 import { Arrow } from "./UI";
+import font from "../data/skillGlyphs.json";
 
 const tools = Object.entries(skills).flatMap(([group, names]) =>
   names.map((name) => ({ name, group })),
 );
 
-/** A single unframed skill appears, holds, and vanishes before the next. */
+function SkillLetters({ name }: { name: string }) {
+  const glyphs = font.glyphs as Record<string, { width: number; path: string }>;
+  const height = font.ascent - font.descent;
+  return (
+    <span aria-hidden="true">
+      {name.split(" ").map((part, index) => (
+        <Fragment key={index}>
+          {index > 0 && " "}
+          <span className="skill-written-word">
+            {Array.from(part).map((letter, position) => {
+              const glyph = glyphs[letter];
+              if (!glyph) return <span key={position}>{letter}</span>;
+              return (
+                <svg
+                  key={position}
+                  className="skill-letter"
+                  viewBox={`0 ${-font.ascent} ${glyph.width} ${height}`}
+                  width={`${glyph.width / font.units}em`}
+                  height={`${height / font.units}em`}
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d={glyph.path} transform="scale(1,-1)" pathLength={1} />
+                </svg>
+              );
+            })}
+          </span>
+        </Fragment>
+      ))}
+    </span>
+  );
+}
+
+/** Real letter outlines draw and fill before the skill disappears. */
 export default function SkillsMotion({
   compact = false,
 }: {
@@ -15,15 +49,16 @@ export default function SkillsMotion({
 }) {
   const stage = useRef<HTMLDivElement>(null);
   const word = useRef<HTMLDivElement>(null);
-  const animation = useRef<Animation | null>(null);
+  const animations = useRef<Animation[]>([]);
   const touch = useRef<{ x: number; y: number } | null>(null);
   const [active, setActive] = useState(0);
   const [enhanced, setEnhanced] = useState(false);
   const [motion, setMotion] = useState(false);
   const [visible, setVisible] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const running = motion && visible && !hidden && !paused;
+  const [inventoryOpen, setInventoryOpen] = useState(false);
+  const [inspecting, setInspecting] = useState(false);
+  const running = motion && visible && !hidden && !inventoryOpen && !inspecting;
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -46,59 +81,96 @@ export default function SkillsMotion({
   }, []);
 
   useEffect(() => {
-    if (!motion || paused || !word.current) return;
-    const effect = word.current.animate(
+    if (!motion || inventoryOpen || inspecting || !word.current) return;
+    const paths = Array.from(
+      word.current.querySelectorAll(".skill-letter path"),
+    );
+    const build = 900 + Math.max(0, paths.length - 1) * 70;
+    const duration = build + 1950;
+    const sequence = word.current.animate(
       [
         {
-          opacity: 0,
-          transform: "translateY(12px)",
-          filter: "blur(5px)",
+          opacity: 1,
+          transform: "translateY(0)",
+          filter: "blur(0)",
           offset: 0,
         },
         {
           opacity: 1,
           transform: "translateY(0)",
           filter: "blur(0)",
-          offset: 0.16,
-        },
-        {
-          opacity: 1,
-          transform: "translateY(0)",
-          filter: "blur(0)",
-          offset: 0.68,
+          offset: (build + 1200) / duration,
         },
         {
           opacity: 0,
-          transform: "translateY(-12px)",
-          filter: "blur(5px)",
-          offset: 0.9,
+          transform: "translateY(-10px)",
+          filter: "blur(4px)",
+          offset: (build + 1700) / duration,
         },
         {
           opacity: 0,
-          transform: "translateY(-12px)",
-          filter: "blur(5px)",
+          transform: "translateY(-10px)",
+          filter: "blur(4px)",
           offset: 1,
         },
       ],
-      { duration: 3200, fill: "both", easing: "ease-in-out" },
+      { duration, fill: "both", easing: "ease-in-out" },
     );
-    effect.pause();
-    effect.onfinish = () => setActive((index) => (index + 1) % tools.length);
-    animation.current = effect;
+    sequence.pause();
+    sequence.onfinish = () => setActive((index) => (index + 1) % tools.length);
+    const letters = paths.map((path, index) => {
+      const effect = path.animate(
+        [
+          {
+            strokeDashoffset: "1",
+            strokeOpacity: 0,
+            fillOpacity: 0,
+            offset: 0,
+          },
+          {
+            strokeDashoffset: "1",
+            strokeOpacity: 1,
+            fillOpacity: 0,
+            offset: 0.08,
+          },
+          {
+            strokeDashoffset: "0",
+            strokeOpacity: 1,
+            fillOpacity: 0,
+            offset: 0.68,
+          },
+          {
+            strokeDashoffset: "0",
+            strokeOpacity: 0,
+            fillOpacity: 1,
+            offset: 1,
+          },
+        ],
+        {
+          duration: 900,
+          delay: index * 70,
+          fill: "both",
+          easing: "ease-in-out",
+        },
+      );
+      effect.pause();
+      return effect;
+    });
+    animations.current = [sequence, ...letters];
     return () => {
-      effect.onfinish = null;
-      effect.cancel();
-      animation.current = null;
+      sequence.onfinish = null;
+      animations.current.forEach((effect) => effect.cancel());
+      animations.current = [];
     };
-  }, [active, motion, paused]);
+  }, [active, motion, inventoryOpen, inspecting]);
 
   useEffect(() => {
-    if (running) animation.current?.play();
-    else animation.current?.pause();
-  }, [running, active, motion, paused]);
+    animations.current.forEach((effect) =>
+      running ? effect.play() : effect.pause(),
+    );
+  }, [running, active, motion, inventoryOpen, inspecting]);
 
   const step = (direction: number) => {
-    setPaused(true);
     setActive((index) => (index + direction + tools.length) % tools.length);
   };
 
@@ -127,6 +199,8 @@ export default function SkillsMotion({
         role="region"
         aria-label="Skills, one at a time"
         tabIndex={0}
+        onFocus={() => setInspecting(true)}
+        onBlur={() => setInspecting(false)}
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
             event.preventDefault();
@@ -159,7 +233,9 @@ export default function SkillsMotion({
           <span className="skill-word-category mono">
             {tools[active].group}
           </span>
-          <h3>{tools[active].name}</h3>
+          <h3 aria-label={tools[active].name}>
+            <SkillLetters name={tools[active].name} />
+          </h3>
         </div>
       </div>
       <div
@@ -179,15 +255,6 @@ export default function SkillsMotion({
         </button>
         <button
           type="button"
-          className="skills-motion-toggle mono"
-          disabled={!motion}
-          aria-pressed={paused}
-          onClick={() => setPaused((value) => !value)}
-        >
-          {!motion ? "Motion off" : paused ? "Resume motion" : "Pause motion"}
-        </button>
-        <button
-          type="button"
           className="skill-step"
           aria-label="Next skill"
           aria-controls="skill-word"
@@ -197,7 +264,10 @@ export default function SkillsMotion({
           <span aria-hidden="true">&rarr;</span>
         </button>
       </div>
-      <details className="skills-inventory">
+      <details
+        className="skills-inventory"
+        onToggle={(event) => setInventoryOpen(event.currentTarget.open)}
+      >
         <summary>View all {tools.length} skills</summary>
         <div className="skills-inventory-grid">
           {Object.entries(skills).map(([group, names]) => (

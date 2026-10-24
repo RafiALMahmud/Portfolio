@@ -28,7 +28,7 @@ Case and project cards use full-surface native links, while separate live-site a
 
 The hero headline forms from scattered, blurred letters and small grains in a single 2.6-second sequence. Its layout is reserved throughout, with one complete accessible heading. Reduced motion and JavaScript-disabled pages show the full text immediately.
 
-Skills appear as plain text on Home and About: one name fades in, holds, disappears fully, then the next begins. There are no skill cards, frames, emblems or side previews. Pause/resume, previous/next, arrow keys and mobile swipes provide control. Motion stops offscreen or in a hidden tab. Reduced motion keeps manual navigation without animation. A native disclosure lists all 27 skills, including without JavaScript.
+Skills appear as unframed lettering on Home and About: the actual font outlines draw letter by letter, fill in, hold, disappear fully, then the next name begins. Previous/next, arrow keys and mobile swipes change the skill; there is no pause button. Opening the full 27-skill list or focusing the display stops motion for reading. Motion also stops offscreen or in a hidden tab. Reduced motion and pages without JavaScript show fully formed letters.
 
 ## Verify
 
@@ -59,7 +59,7 @@ The browser check covers every route at 1440px and 390px, accessibility rules, o
 - `src/spatial.css` and `src/components/InvestigatorEffects.tsx`: detective cursor, 3D surfaces and pointer/motion behavior. `DeskLoupe.tsx` draws the decorative hero magnifier.
 - `src/components/CaseFile.tsx`: in-view case-file assembly, profile-file link and motion-preference lifecycle.
 - `src/components/FormingHeadline.tsx`: finite letter formation with static and reduced-motion fallbacks.
-- `src/components/SkillsMotion.tsx` and `src/skills.css`: single-name appearance/disappearance, navigation controls and static inventory. The skill names still come from `src/content.ts`.
+- `src/components/SkillsMotion.tsx` and `src/skills.css`: letter-outline construction, single-name disappearance, navigation controls and static inventory. The skill names still come from `src/content.ts`. `src/data/skillGlyphs.json` contains outlines derived from the existing Playfair font; the optional `scripts/generate-skill-glyphs.py` helper regenerates them with fontTools and Brotli. Normal builds require no Python packages.
 
 Add a project object with a unique slug, verified description, tags, stack and source note. A deep-linkable project page and sitemap entry are generated automatically. Add a live-site object to generate its case page. For a new page type, add a loader and route metadata in `src/routing.ts`, then implement its component. Run the build and checks before pushing. Keep unknown facts out of the public copy and mark genuine source gaps with `TODO` comments.
 

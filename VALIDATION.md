@@ -142,3 +142,12 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - The revised skills suite passes at 1440, 390 and 320 pixels with zero accessibility violations, horizontal overflow or browser errors.
 - Published source `150db0f` as `dpl_EbCN82dnNsSPgtQAbK8ZF1qZfoif`. Vercel reported `READY` and verified HTTP 200 at the unchanged https://portfolio-9jtk.vercel.app domain.
 - The plain-text skills suite also passes against production at all three widths, including the completely vanished interval, single unframed name, controls, real touch swipes, reduced motion, accessibility and static fallback.
+
+## Constructed letters and pause-button removal - 25 October 2026
+
+- Removed the pause/resume/motion-off button at the owner's request. Each skill now draws real Playfair Display letter outlines in sequence, then fills them in, holds and disappears before the next begins. There are no cards or boxes around the letters.
+- Converted 49 glyphs from the site's existing licensed font into checked-in SVG path data. Runtime drawing uses native SVG paths and browser animations; no rendering library or JavaScript frame loop is needed. Python fontTools and Brotli are only optional asset-generation tools, not application dependencies.
+- Previous/next, arrow keys and touch swipes remain available. Keyboard focus inspection and the expanded full-skill list leave readable, fully formed letters and stop animation. Closing the list restarts construction; offscreen/hidden-tab changes pause animation progress. Reduced motion and JavaScript-disabled pages show fully formed glyphs and retain the native inventory.
+- The updated skills suite passes at 1440, 390 and 320 pixels: no pause button, partial outline tracing, staggered later letters, completed fills, fully vanished words, auto-advance, full-list pause, keyboard/touch navigation, reduced motion, static fallback, no overflow, zero accessibility violations and no browser errors.
+- Build/type checks and all 20 static route checks pass. Static output is approximately 3.06 MB, including the pre-existing WASE video.
+- All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.

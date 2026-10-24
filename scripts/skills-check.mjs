@@ -18,63 +18,94 @@ try {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(origin, { waitUntil: "networkidle" });
     const board = page.locator(".skills-motion");
-    const front = page.locator(".skill-word");
+    const word = page.locator(".skill-word");
+    const name = () => word.locator("h3").getAttribute("aria-label");
+    assert.equal(await page.locator(".skills-motion-toggle").count(), 0);
     assert.equal(await board.getAttribute("data-running"), "false");
     await page.locator(".skill-stage").scrollIntoViewIfNeeded();
     await page.mouse.move(5, 5);
     await page.waitForFunction(
       () => document.querySelector(".skills-motion").dataset.active === "1",
     );
-    assert.equal(await front.locator("h3").innerText(), "PHP");
+    assert.equal(await name(), "PHP");
     assert.equal(await page.locator(".skill-word").count(), 1);
-    await page
-      .getByRole("button", { name: "Pause motion", exact: true })
-      .click();
-    const paused = await board.getAttribute("data-active");
-    await page.waitForTimeout(3350);
-    assert.equal(await board.getAttribute("data-active"), paused);
+    assert.equal(await word.locator(".skill-letter path").count(), 3);
+    const stages = await word.evaluate((el) => {
+      const effects = el.getAnimations({ subtree: true });
+      const master = effects.find((effect) => effect.effect.target === el);
+      const paths = el.querySelectorAll(".skill-letter path");
+      const seek = (time) => {
+        for (const effect of effects) {
+          effect.pause();
+          effect.currentTime = time;
+        }
+      };
+      seek(0);
+      const initial = getComputedStyle(paths[0]);
+      const empty = {
+        fill: initial.fillOpacity,
+        dash: parseFloat(initial.strokeDashoffset),
+      };
+      seek(350);
+      const drawing = {
+        fill: getComputedStyle(paths[0]).fillOpacity,
+        dash: parseFloat(getComputedStyle(paths[0]).strokeDashoffset),
+        laterDash: parseFloat(getComputedStyle(paths[2]).strokeDashoffset),
+      };
+      seek(1500);
+      const held = Array.from(paths).map(
+        (path) => getComputedStyle(path).fillOpacity,
+      );
+      seek(Number(master.effect.getTiming().duration) - 100);
+      const vanished = getComputedStyle(el).opacity;
+      return { empty, drawing, held, vanished };
+    });
+    assert.deepEqual(stages.empty, { fill: "0", dash: 1 });
+    assert.equal(stages.drawing.fill, "0");
+    assert(
+      stages.drawing.dash > 0 && stages.drawing.dash < 1,
+      "The first letter outline must be partially drawn",
+    );
+    assert(
+      stages.drawing.laterDash > stages.drawing.dash,
+      "Later letters must follow the first letter",
+    );
+    assert.deepEqual(stages.held, ["1", "1", "1"]);
+    assert.equal(stages.vanished, "0");
+    await word.evaluate((el) => {
+      for (const effect of el.getAnimations({ subtree: true }))
+        effect.currentTime = 350;
+    });
+    await page.screenshot({ path: `test-results/skills-drawing-${width}.png` });
+    await word.evaluate((el) =>
+      el
+        .getAnimations()
+        .find((effect) => effect.effect.target === el)
+        .finish(),
+    );
+    await page.waitForFunction(
+      () => document.querySelector(".skills-motion").dataset.active === "2",
+    );
+    assert.equal(await name(), "Java");
+    await page.getByText("View all 27 skills", { exact: true }).click();
     assert.equal(
-      await page.locator(".skill-face, .skill-deck, .skill-emblem").count(),
+      await word.evaluate((el) => el.getAnimations({ subtree: true }).length),
       0,
     );
-    const style = await front.evaluate((el) => ({
-      opacity: getComputedStyle(el).opacity,
-      border: getComputedStyle(el).borderWidth,
-      background: getComputedStyle(el).backgroundColor,
-      shadow: getComputedStyle(el).boxShadow,
-    }));
-    assert.equal(style.opacity, "1");
-    assert.equal(style.border, "0px");
-    assert.equal(style.background, "rgba(0, 0, 0, 0)");
-    assert.equal(style.shadow, "none");
-    await page
-      .getByRole("button", { name: "Resume motion", exact: true })
-      .click();
-    const sequence = await front.evaluate((el) => {
-      const effect = el.getAnimations()[0];
-      effect.pause();
-      effect.currentTime = 1200;
-      const held = getComputedStyle(el).opacity;
-      effect.currentTime = 3000;
-      const vanished = getComputedStyle(el).opacity;
-      effect.currentTime = 3190;
-      const gap = getComputedStyle(el).opacity;
-      return { held, vanished, gap };
-    });
-    assert.deepEqual(sequence, { held: "1", vanished: "0", gap: "0" });
-    await page
-      .getByRole("button", { name: "Pause motion", exact: true })
-      .click();
+    const current = await board.getAttribute("data-active");
+    await page.waitForTimeout(3350);
+    assert.equal(await board.getAttribute("data-active"), current);
+    assert.equal(await page.locator(".skills-inventory li").count(), 27);
     await page.getByRole("button", { name: "Next skill", exact: true }).click();
-    assert.equal(await front.locator("h3").innerText(), "Java");
+    assert.equal(await name(), "JavaScript / TypeScript");
     await page
       .getByRole("button", { name: "Previous skill", exact: true })
       .focus();
     await page.keyboard.press("Enter");
-    assert.equal(await front.locator("h3").innerText(), "PHP");
+    assert.equal(await name(), "Java");
     await page.locator(".skill-stage").focus();
     await page.keyboard.press("ArrowLeft");
-    assert.equal(await front.locator("h3").innerText(), "Python");
+    assert.equal(await name(), "PHP");
     if (width < 700) {
       const bounds = await page.locator(".skill-stage").boundingBox();
       const x = bounds.x + bounds.width / 2,
@@ -92,42 +123,16 @@ try {
         type: "touchEnd",
         touchPoints: [],
       });
-      assert.equal(await front.locator("h3").innerText(), "PHP");
+      assert.equal(await name(), "Java");
       await session.detach();
     }
-    await page
-      .getByRole("button", { name: "Resume motion", exact: true })
-      .click();
-    await page.mouse.move(5, 5);
-    await page.waitForFunction(
-      () => document.querySelector(".skills-motion").dataset.running === "true",
-    );
-    await page
-      .getByRole("button", { name: "Pause motion", exact: true })
-      .click();
     await page.getByRole("link", { name: "Explore all skills" }).click();
     await page.getByRole("heading", { name: "Tools of the trade." }).waitFor();
     await page.waitForFunction(
       () => document.querySelector("#skills").getBoundingClientRect().top < 160,
     );
-    await page
-      .getByRole("button", { name: "Pause motion", exact: true })
-      .click();
-    await page.mouse.move(5, 5);
-    await page
-      .locator(".skill-stage")
-      .evaluate((el) =>
-        el
-          .getAnimations({ subtree: true })
-          .forEach((animation) => animation.finish()),
-      );
-    await page.screenshot({ path: `test-results/skills-words-${width}.png` });
     await page.getByText("View all 27 skills", { exact: true }).click();
-    assert.equal(await page.locator(".skills-inventory li").count(), 27);
     await page.emulateMedia({ reducedMotion: "reduce" });
-    await page
-      .getByRole("button", { name: "Motion off", exact: true })
-      .waitFor();
     assert.equal(
       await page
         .locator(".skill-stage")
@@ -135,7 +140,30 @@ try {
       0,
     );
     await page.getByRole("button", { name: "Next skill", exact: true }).click();
-    assert.equal(await front.locator("h3").innerText(), "PHP");
+    assert.equal(await name(), "PHP");
+    assert.equal(
+      await word
+        .locator(".skill-letter path")
+        .first()
+        .evaluate((el) => getComputedStyle(el).fillOpacity),
+      "1",
+    );
+    for (let index = 0; index < 27; index++) {
+      const label = await name();
+      assert.equal(
+        await word.locator(".skill-letter path").count(),
+        label.replaceAll(" ", "").length,
+      );
+      assert.equal(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth > innerWidth,
+        ),
+        false,
+      );
+      await page
+        .getByRole("button", { name: "Next skill", exact: true })
+        .click();
+    }
     assert.equal(
       await page.evaluate(
         () => document.documentElement.scrollWidth > innerWidth,
@@ -155,7 +183,7 @@ try {
     assert.deepEqual(errors, []);
     await context.close();
     console.log(
-      `${width}px: one plain skill appears, holds and completely vanishes before the next; automatic stepping/pause, manual/keyboard navigation, mobile swipes, all 27 skills and reduced motion pass without overflow or accessibility violations.`,
+      `${width}px: no pause button, real glyph outlines build in order and fill, the word vanishes, the full list stops motion, and keyboard/touch/reduced-motion/accessibility checks pass.`,
     );
   }
   const context = await browser.newContext({ javaScriptEnabled: false });
@@ -168,9 +196,16 @@ try {
       .getByRole("heading", { name: "Python", exact: true })
       .isVisible(),
   );
+  assert.equal(
+    await page
+      .locator(".skill-letter path")
+      .first()
+      .evaluate((el) => getComputedStyle(el).fillOpacity),
+    "1",
+  );
   await context.close();
   console.log(
-    "The first skill and the complete native disclosure remain available without JavaScript.",
+    "Fully formed letters and the native skill inventory work without JavaScript.",
   );
 } finally {
   await browser.close();

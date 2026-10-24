@@ -50,7 +50,6 @@
   gap: 12px;
   margin-block: 8px 24px;
 }
-.skills-motion-toggle,
 .skill-step {
   min-height: 44px;
   padding: 10px 15px;
@@ -58,20 +57,14 @@
   border: 1px solid #494448;
   background: #111113;
 }
-.skills-motion-toggle {
-  min-width: 140px;
-  font-size: 10px;
-}
 .skill-step {
   width: 44px;
   padding: 8px;
   font-size: 20px;
 }
-.skills-motion-toggle:hover:enabled,
 .skill-step:hover:enabled {
   border-color: var(--red);
 }
-.skills-motion-toggle:disabled,
 .skill-step:disabled {
   color: var(--muted);
 }
@@ -143,4 +136,24 @@
   .skills-inventory > .skills-inventory-grid {
     display: grid !important;
   }
+}
+
+.skill-written-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.skill-letter {
+  display: inline-block;
+  overflow: visible;
+  vertical-align: -0.251em;
+}
+.skill-letter path {
+  fill: currentColor;
+  fill-opacity: 1;
+  stroke: currentColor;
+  stroke-width: 24;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-opacity: 0;
+  stroke-dasharray: 1;
 }
