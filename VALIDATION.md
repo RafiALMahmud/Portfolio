@@ -140,3 +140,5 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - Updated skills checks validate the actual appearance, held and fully vanished timeline states, a blank interval, one displayed name, no card markup/border/background/shadow, automatic advance, pause/resume, keyboard selection, real touch swipes, inventory, anchor navigation, reduced motion and static fallback. No new dependencies were added.
 - Build/type checks and all 20 static route checks pass. Total static output is approximately 3.01 MB.
 - The revised skills suite passes at 1440, 390 and 320 pixels with zero accessibility violations, horizontal overflow or browser errors.
+- Published source `150db0f` as `dpl_EbCN82dnNsSPgtQAbK8ZF1qZfoif`. Vercel reported `READY` and verified HTTP 200 at the unchanged https://portfolio-9jtk.vercel.app domain.
+- The plain-text skills suite also passes against production at all three widths, including the completely vanished interval, single unframed name, controls, real touch swipes, reduced motion, accessibility and static fallback.
