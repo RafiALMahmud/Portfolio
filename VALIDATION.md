@@ -119,3 +119,5 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - `npm run check:skills` passes at 1440, 390 and 320 pixels: motion in view, idle state offscreen, keyboard pause/resume, row inspection, anchor navigation, all 27 canonical skills, live reduced motion, no overflow, zero WCAG violations and JavaScript-disabled scrolling.
 - Build/type checks and all 20 static route checks pass. Main JavaScript is approximately 69.26 kB gzip; the shared skills chunk is approximately 1.13 kB gzip; total static output is approximately 3.02 MB. Cursor/tilt and navigation-recovery suites pass.
 - All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.
+- Published source `ada8e99` as `dpl_3AHnR6ahyPt22EwWaMpCPLXSUHp3`. Vercel reported `READY`, verified HTTP 200 and retained https://portfolio-9jtk.vercel.app.
+- The full skills suite passes against production at all three viewport widths. A separate touch-phone check confirms that the direct homepage `#skills` link, tap-to-pause and tap-to-resume work without overflow.
