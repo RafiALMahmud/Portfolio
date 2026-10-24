@@ -130,3 +130,5 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - The revised skills suite passes at 1440, 390 and 320 pixels: actual auto-advance and pause, front-facing versus angled card matrices, one accessible active card, previous/next and keyboard controls, real touch swipes, anchor navigation, full inventory, reduced motion, static fallback, no overflow and zero accessibility violations.
 - Build/type checks and all 20 static route checks pass. The shared skills chunk is approximately 1.66 kB gzip; total static output is approximately 3.02 MB.
 - All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.
+- Published source `cef8150` as `dpl_GRaX2Em6fS5VNsLUMQ2bseBgxfre`. Vercel reported `READY` and verified HTTP 200 at the unchanged https://portfolio-9jtk.vercel.app domain.
+- The revised one-at-a-time skills suite also passes against the public production URL at 1440, 390 and 320 pixels, including auto-advance, face-on matrices, pause, manual/keyboard selection, touch swipes, accessibility and static fallback.
