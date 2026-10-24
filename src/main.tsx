@@ -4,6 +4,7 @@ import App from "./App";
 import { loadPage, routes } from "./routing";
 import "./styles.css";
 import "./spatial.css";
+import "./skills.css";
 
 const path = window.location.pathname.replace(/\/$/, "") || "/";
 loadPage(path).then((Page) => {

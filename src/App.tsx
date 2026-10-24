@@ -107,6 +107,8 @@ export default function App({
       previousPath.current = loaded.path;
       window.scrollTo({ top: 0, behavior: "instant" });
       main.current?.focus({ preventScroll: true });
+      const anchor = document.getElementById(window.location.hash.slice(1));
+      anchor?.scrollIntoView({ block: "start", behavior: "instant" });
     }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const observer = new IntersectionObserver(

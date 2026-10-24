@@ -14,6 +14,7 @@
     "check:navigation": "node scripts/navigation-check.mjs",
     "check:headline": "node scripts/headline-check.mjs",
     "check:cards-video": "node scripts/cards-video-check.mjs",
+    "check:skills": "node scripts/skills-check.mjs",
     "check:lighthouse": "node scripts/lighthouse-check.mjs"
   },
   "dependencies": {

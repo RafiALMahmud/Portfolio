@@ -28,6 +28,8 @@ Case and project cards use full-surface native links, while separate live-site a
 
 The hero headline forms from scattered, blurred letters and small grains in a single 2.6-second sequence. Its layout is reserved throughout, with one complete accessible heading. Reduced motion and JavaScript-disabled pages show the full text immediately.
 
+Skills move through alternating badge rows on the homepage and in the full About toolkit. The pause/resume control stops all rows; hover and keyboard inspection pause individual rows. Motion stops offscreen or in a hidden tab. Reduced motion displays wrapped lists, while JavaScript-disabled pages retain native horizontal scrolling. Each skill has one accessible copy.
+
 ## Verify
 
 With `npm run preview` running in another terminal:
@@ -40,6 +42,7 @@ npm run check:assembly
 npm run check:navigation
 npm run check:headline
 npm run check:cards-video
+npm run check:skills
 npm run check:lighthouse
 ```
 
@@ -56,6 +59,7 @@ The browser check covers every route at 1440px and 390px, accessibility rules, o
 - `src/spatial.css` and `src/components/InvestigatorEffects.tsx`: detective cursor, 3D surfaces and pointer/motion behavior. `DeskLoupe.tsx` draws the decorative hero magnifier.
 - `src/components/CaseFile.tsx`: in-view case-file assembly, profile-file link and motion-preference lifecycle.
 - `src/components/FormingHeadline.tsx`: finite letter formation with static and reduced-motion fallbacks.
+- `src/components/SkillsMotion.tsx` and `src/skills.css`: shared moving skills badges, pause controls and static fallbacks. The skill names still come from `src/content.ts`.
 
 Add a project object with a unique slug, verified description, tags, stack and source note. A deep-linkable project page and sitemap entry are generated automatically. Add a live-site object to generate its case page. For a new page type, add a loader and route metadata in `src/routing.ts`, then implement its component. Run the build and checks before pushing. Keep unknown facts out of the public copy and mark genuine source gaps with `TODO` comments.
 

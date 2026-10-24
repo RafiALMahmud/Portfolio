@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { person, skills } from "../content";
+import { person } from "../content";
+import SkillsMotion from "../components/SkillsMotion";
 import { ContactCTA, FileHeader, Results } from "../components/UI";
 export default function About() {
   return (
@@ -67,22 +68,7 @@ export default function About() {
           </details>
         </section>
       </div>
-      <section className="skills-section">
-        <span className="mono section-index">03 / THE TOOLKIT</span>
-        <h2>Tools of the trade.</h2>
-        <div className="skills-grid">
-          {Object.entries(skills).map(([group, list]) => (
-            <div key={group}>
-              <h3>{group}</h3>
-              <ul>
-                {list.map((s) => (
-                  <li key={s}>{s}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+      <SkillsMotion />
       <div className="about-grid">
         <section className="document-block">
           <span className="mono section-index">04 / SERVICE & PRACTICE</span>

@@ -4,6 +4,7 @@ import { projects } from "../data/projects";
 import { liveSites } from "../data/liveSites";
 import CaseFile from "../components/CaseFile";
 import FormingHeadline from "../components/FormingHeadline";
+import SkillsMotion from "../components/SkillsMotion";
 import {
   Arrow,
   ContactCTA,
@@ -82,6 +83,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      <SkillsMotion compact />
       <Results />
       <section className="field-note reveal">
         <span className="mono">A NOTE FROM THE DESK</span>

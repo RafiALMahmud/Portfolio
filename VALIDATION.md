@@ -110,3 +110,12 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - Updated assembly checks verify that the replay control is absent and reduced-motion behavior remains correct. Assembly, headline (1440/390/320px) and cursor/tilt suites pass.
 - Published source `689773f` as `dpl_C5qkwRCAckGGmdHmWz5mHZM7rbTF`. Vercel reported `READY`, verified HTTP 200 and retained https://portfolio-9jtk.vercel.app.
 - Public card/video checks pass on desktop and mobile, and public assembly checks pass with no replay control. The served MP4 matches the source SHA-256 and returns HTTP 206 for byte-range requests. A public 360px screenshot confirms the complete folder is visible without clipping or horizontal overflow.
+
+## Skills in motion - 25 October 2026
+
+- Added alternating moving technology badges to the homepage and replaced the About toolkit with six grouped skill rows. All 27 skill entries come from the existing content data; no proficiency scores or new skill claims were added.
+- CSS controls the loops, with no JavaScript render loop or new dependencies. Pause/resume stops all rows, hover or keyboard inspection pauses a row, and offscreen or hidden-tab state stops motion. Reduced motion shows wrapped lists; without JavaScript, native horizontal scrolling preserves access to every skill. Repeated visual copies are hidden from assistive technology.
+- Added a homepage link to `/about#skills` and route-change anchor positioning so visitors land on the toolkit with the existing sticky-header offset.
+- `npm run check:skills` passes at 1440, 390 and 320 pixels: motion in view, idle state offscreen, keyboard pause/resume, row inspection, anchor navigation, all 27 canonical skills, live reduced motion, no overflow, zero WCAG violations and JavaScript-disabled scrolling.
+- Build/type checks and all 20 static route checks pass. Main JavaScript is approximately 69.26 kB gzip; the shared skills chunk is approximately 1.13 kB gzip; total static output is approximately 3.02 MB. Cursor/tilt and navigation-recovery suites pass.
+- All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.
