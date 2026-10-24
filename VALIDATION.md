@@ -121,3 +121,12 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.
 - Published source `ada8e99` as `dpl_3AHnR6ahyPt22EwWaMpCPLXSUHp3`. Vercel reported `READY`, verified HTTP 200 and retained https://portfolio-9jtk.vercel.app.
 - The full skills suite passes against production at all three viewport widths. A separate touch-phone check confirms that the direct homepage `#skills` link, tap-to-pause and tap-to-resume work without overflow.
+
+## One-at-a-time skill display correction - 25 October 2026
+
+- Replaced the scrolling rows following the owner's clarification. One skill rotates to the front and faces the reader, holds for reading, then turns aside as the next arrives every 3.2 seconds. Inactive neighboring cards are decorative; only the current slide is exposed to assistive technology.
+- Added previous/next controls, left/right keyboard navigation, touch swiping, pause/resume and a complete native disclosure containing all 27 original skill entries. Manual navigation pauses autoplay. Reduced motion disables autoplay/transitions while preserving manual selection; without JavaScript the first skill and full disclosure remain available.
+- Motion uses a single timeout per change with cleanup, plus CSS 3D transitions. It stops offscreen, during hover/focus inspection, when paused and in hidden tabs. No rendering library or frame loop was added.
+- The revised skills suite passes at 1440, 390 and 320 pixels: actual auto-advance and pause, front-facing versus angled card matrices, one accessible active card, previous/next and keyboard controls, real touch swipes, anchor navigation, full inventory, reduced motion, static fallback, no overflow and zero accessibility violations.
+- Build/type checks and all 20 static route checks pass. The shared skills chunk is approximately 1.66 kB gzip; total static output is approximately 3.02 MB.
+- All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.

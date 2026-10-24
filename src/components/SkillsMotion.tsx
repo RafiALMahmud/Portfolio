@@ -1,54 +1,77 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { skills } from "../content";
 import { Arrow } from "./UI";
 
-const preview = [
-  ["Backend & APIs", [...skills.Languages, ...skills.Backend]],
-  ["Web & data", [...skills.Frontend, ...skills.Databases]],
-  ["Research & tooling", [...skills["Data & ML"], ...skills.Tooling]],
-] as [string, string[]][];
+const symbols: Record<string, string> = {
+  Languages: "{ }",
+  Backend: "/api",
+  Frontend: "</>",
+  "Data & ML": "AI",
+  Databases: "DB",
+  Tooling: ">_",
+};
+const tools = Object.entries(skills).flatMap(([group, names]) =>
+  names.map((name) => ({ name, group, symbol: symbols[group] })),
+);
 
-/** Native scrolling without JavaScript; pausable CSS tapes with it. */
+/** Each tool turns toward the reader, holds face-on, then yields to the next. */
 export default function SkillsMotion({
   compact = false,
 }: {
   compact?: boolean;
 }) {
-  const section = useRef<HTMLElement>(null);
-  const [ready, setReady] = useState(false);
+  const stage = useRef<HTMLDivElement>(null);
+  const touch = useRef<{ x: number; y: number } | null>(null);
+  const [active, setActive] = useState(0);
+  const [enhanced, setEnhanced] = useState(false);
+  const [motion, setMotion] = useState(false);
   const [visible, setVisible] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [paused, setPaused] = useState(false);
-  const groups = compact ? preview : Object.entries(skills);
+  const [inspecting, setInspecting] = useState(false);
+  const running = motion && visible && !hidden && !paused && !inspecting;
 
   useEffect(() => {
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const configure = () => setReady(!motion.matches);
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const configure = () => setMotion(!preference.matches);
     const visibility = () => setHidden(document.hidden);
     const observer = new IntersectionObserver(([entry]) =>
       setVisible(entry.isIntersecting),
     );
-    if (section.current) observer.observe(section.current);
+    if (stage.current) observer.observe(stage.current);
+    setEnhanced(true);
     configure();
     visibility();
-    motion.addEventListener("change", configure);
+    preference.addEventListener("change", configure);
     document.addEventListener("visibilitychange", visibility);
     return () => {
       observer.disconnect();
-      motion.removeEventListener("change", configure);
+      preference.removeEventListener("change", configure);
       document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
 
+  useEffect(() => {
+    if (!running) return;
+    const timer = window.setTimeout(
+      () => setActive((index) => (index + 1) % tools.length),
+      3200,
+    );
+    return () => window.clearTimeout(timer);
+  }, [running, active]);
+
+  const step = (direction: number) => {
+    setPaused(true);
+    setActive((index) => (index + direction + tools.length) % tools.length);
+  };
+
   return (
     <section
       id="skills"
-      ref={section}
       className={`skills-motion ${compact ? "skills-preview" : "skills-section"}`}
-      data-ready={ready}
-      data-running={ready && visible && !hidden && !paused}
-      data-paused={paused}
+      data-running={running}
+      data-active={active}
       aria-labelledby="skills-title"
     >
       <div className="skills-motion-heading">
@@ -58,61 +81,128 @@ export default function SkillsMotion({
             {compact ? "The working toolkit." : "Tools of the trade."}
           </h2>
         </div>
+        <span className="skill-count mono" aria-hidden="true">
+          {String(active + 1).padStart(2, "0")} / {tools.length}
+        </span>
+      </div>
+      <div
+        className="skill-stage"
+        ref={stage}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Skills, one at a time"
+        tabIndex={0}
+        onPointerEnter={(event) => {
+          if (event.pointerType === "mouse") setInspecting(true);
+        }}
+        onPointerLeave={() => setInspecting(false)}
+        onFocus={() => setInspecting(true)}
+        onBlur={() => setInspecting(false)}
+        onKeyDown={(event) => {
+          if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+            event.preventDefault();
+            step(event.key === "ArrowLeft" ? -1 : 1);
+          }
+        }}
+        onPointerDown={(event) => {
+          if (event.pointerType === "touch")
+            touch.current = { x: event.clientX, y: event.clientY };
+        }}
+        onPointerUp={(event) => {
+          if (!touch.current) return;
+          const dx = event.clientX - touch.current.x,
+            dy = event.clientY - touch.current.y;
+          touch.current = null;
+          if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy))
+            step(dx < 0 ? 1 : -1);
+        }}
+        onPointerCancel={() => {
+          touch.current = null;
+        }}
+      >
+        <ul className="skill-deck" id="skill-deck" aria-live="off">
+          {tools.map((tool, index) => {
+            const offset = (index - active + tools.length) % tools.length;
+            const position =
+              offset === 0
+                ? "front"
+                : offset === 1
+                  ? "next"
+                  : offset === tools.length - 1
+                    ? "previous"
+                    : offset < tools.length / 2
+                      ? "back-right"
+                      : "back-left";
+            return (
+              <li
+                key={tool.name}
+                className="skill-face"
+                data-position={position}
+                aria-hidden={offset !== 0}
+              >
+                <div className="skill-face-meta mono">
+                  <span>{tool.group}</span>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <span className="skill-emblem" aria-hidden="true">
+                  {tool.symbol}
+                </span>
+                <h3>{tool.name}</h3>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div
+        className="skill-controls"
+        role="group"
+        aria-label="Skill display controls"
+      >
+        <button
+          type="button"
+          className="skill-step"
+          aria-label="Previous skill"
+          aria-controls="skill-deck"
+          disabled={!enhanced}
+          onClick={() => step(-1)}
+        >
+          <span aria-hidden="true">&larr;</span>
+        </button>
         <button
           type="button"
           className="skills-motion-toggle mono"
-          disabled={!ready}
+          disabled={!motion}
           aria-pressed={paused}
           onClick={() => setPaused((value) => !value)}
         >
-          <span aria-hidden="true">{ready && !paused ? "Ⅱ" : "▷"}</span>
-          {!ready ? "Motion off" : paused ? "Resume motion" : "Pause motion"}
+          {!motion ? "Motion off" : paused ? "Resume motion" : "Pause motion"}
+        </button>
+        <button
+          type="button"
+          className="skill-step"
+          aria-label="Next skill"
+          aria-controls="skill-deck"
+          disabled={!enhanced}
+          onClick={() => step(1)}
+        >
+          <span aria-hidden="true">&rarr;</span>
         </button>
       </div>
-      <div className="skills-lanes">
-        {groups.map(([group, items], index) => (
-          <div className="skill-lane" key={group}>
-            <h3>
-              <span className="mono" aria-hidden="true">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {group}
-            </h3>
-            <div
-              className="skill-lane-window"
-              tabIndex={0}
-              role="region"
-              aria-label={`${group} technologies`}
-            >
-              <div
-                className="skill-tape"
-                style={
-                  {
-                    "--skill-duration": `${38 + index * 5}s`,
-                    "--skill-direction": index % 2 ? "reverse" : "normal",
-                  } as CSSProperties
-                }
-              >
-                {[0, 1, 2, 3].map((copy) => (
-                  <ul
-                    className="skill-tape-list"
-                    key={copy}
-                    aria-hidden={copy ? true : undefined}
-                    aria-label={copy ? undefined : `${group} skills`}
-                  >
-                    {items.map((skill) => (
-                      <li key={skill}>
-                        <span className="skill-pin" aria-hidden="true" />
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
+      <details className="skills-inventory">
+        <summary>View all {tools.length} skills</summary>
+        <div className="skills-inventory-grid">
+          {Object.entries(skills).map(([group, names]) => (
+            <div key={group}>
+              <h3>{group}</h3>
+              <ul>
+                {names.map((name) => (
+                  <li key={name}>{name}</li>
                 ))}
-              </div>
+              </ul>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </details>
       {compact && (
         <Link className="text-link skills-detail-link" to="/about#skills">
           Explore all skills <Arrow />
