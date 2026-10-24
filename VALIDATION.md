@@ -151,3 +151,5 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - The updated skills suite passes at 1440, 390 and 320 pixels: no pause button, partial outline tracing, staggered later letters, completed fills, fully vanished words, auto-advance, full-list pause, keyboard/touch navigation, reduced motion, static fallback, no overflow, zero accessibility violations and no browser errors.
 - Build/type checks and all 20 static route checks pass. Static output is approximately 3.06 MB, including the pre-existing WASE video.
 - All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.
+- Published source `2ab37c9` as `dpl_5PsWm9Qxdvfd3vhpcwfVvWUiJHkE`. Vercel reported `READY` and verified HTTP 200 at the unchanged https://portfolio-9jtk.vercel.app domain.
+- Public skills checks pass at 1440, 390 and 320 pixels, including real outline construction, filling and disappearance, button removal, glyph coverage/layout for all 27 skills, full-list pause, keyboard/touch navigation, accessibility, reduced motion and JavaScript-disabled fallback.
