@@ -18,7 +18,7 @@ try {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(origin, { waitUntil: "networkidle" });
     const board = page.locator(".skills-motion");
-    const front = page.locator('.skill-face[data-position="front"]');
+    const front = page.locator(".skill-word");
     assert.equal(await board.getAttribute("data-running"), "false");
     await page.locator(".skill-stage").scrollIntoViewIfNeeded();
     await page.mouse.move(5, 5);
@@ -26,31 +26,45 @@ try {
       () => document.querySelector(".skills-motion").dataset.active === "1",
     );
     assert.equal(await front.locator("h3").innerText(), "PHP");
-    assert.equal(
-      await page.locator('.skill-face[aria-hidden="false"]').count(),
-      1,
-    );
+    assert.equal(await page.locator(".skill-word").count(), 1);
     await page
       .getByRole("button", { name: "Pause motion", exact: true })
       .click();
     const paused = await board.getAttribute("data-active");
     await page.waitForTimeout(3350);
     assert.equal(await board.getAttribute("data-active"), paused);
-    const facing = await front.evaluate((el) => {
-      const matrix = new DOMMatrixReadOnly(getComputedStyle(el).transform);
-      return { xz: matrix.m13, zx: matrix.m31 };
-    });
-    assert.equal(facing.xz, 0);
-    assert.equal(facing.zx, 0);
-    const side = await page
-      .locator('.skill-face[data-position="next"]')
-      .evaluate(
-        (el) => new DOMMatrixReadOnly(getComputedStyle(el).transform).m13,
-      );
-    assert(
-      Math.abs(side) > 0.1,
-      "The next card should be angled away from the reader",
+    assert.equal(
+      await page.locator(".skill-face, .skill-deck, .skill-emblem").count(),
+      0,
     );
+    const style = await front.evaluate((el) => ({
+      opacity: getComputedStyle(el).opacity,
+      border: getComputedStyle(el).borderWidth,
+      background: getComputedStyle(el).backgroundColor,
+      shadow: getComputedStyle(el).boxShadow,
+    }));
+    assert.equal(style.opacity, "1");
+    assert.equal(style.border, "0px");
+    assert.equal(style.background, "rgba(0, 0, 0, 0)");
+    assert.equal(style.shadow, "none");
+    await page
+      .getByRole("button", { name: "Resume motion", exact: true })
+      .click();
+    const sequence = await front.evaluate((el) => {
+      const effect = el.getAnimations()[0];
+      effect.pause();
+      effect.currentTime = 1200;
+      const held = getComputedStyle(el).opacity;
+      effect.currentTime = 3000;
+      const vanished = getComputedStyle(el).opacity;
+      effect.currentTime = 3190;
+      const gap = getComputedStyle(el).opacity;
+      return { held, vanished, gap };
+    });
+    assert.deepEqual(sequence, { held: "1", vanished: "0", gap: "0" });
+    await page
+      .getByRole("button", { name: "Pause motion", exact: true })
+      .click();
     await page.getByRole("button", { name: "Next skill", exact: true }).click();
     assert.equal(await front.locator("h3").innerText(), "Java");
     await page
@@ -107,7 +121,7 @@ try {
           .getAnimations({ subtree: true })
           .forEach((animation) => animation.finish()),
       );
-    await page.screenshot({ path: `test-results/skills-face-${width}.png` });
+    await page.screenshot({ path: `test-results/skills-words-${width}.png` });
     await page.getByText("View all 27 skills", { exact: true }).click();
     assert.equal(await page.locator(".skills-inventory li").count(), 27);
     await page.emulateMedia({ reducedMotion: "reduce" });
@@ -141,7 +155,7 @@ try {
     assert.deepEqual(errors, []);
     await context.close();
     console.log(
-      `${width}px: one skill faces front, side cards turn away, automatic stepping/pause, manual/keyboard navigation, mobile swipes, all 27 skills and reduced motion pass without overflow or accessibility violations.`,
+      `${width}px: one plain skill appears, holds and completely vanishes before the next; automatic stepping/pause, manual/keyboard navigation, mobile swipes, all 27 skills and reduced motion pass without overflow or accessibility violations.`,
     );
   }
   const context = await browser.newContext({ javaScriptEnabled: false });

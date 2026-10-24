@@ -132,3 +132,11 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.
 - Published source `cef8150` as `dpl_GRaX2Em6fS5VNsLUMQ2bseBgxfre`. Vercel reported `READY` and verified HTTP 200 at the unchanged https://portfolio-9jtk.vercel.app domain.
 - The revised one-at-a-time skills suite also passes against the public production URL at 1440, 390 and 320 pixels, including auto-advance, face-on matrices, pause, manual/keyboard selection, touch swipes, accessibility and static fallback.
+
+## Plain appearing/disappearing skills - 25 October 2026
+
+- Removed the skill cards, frames, emblems, 3D transforms and neighboring previews following the owner's clarification. A single plain-text skill fades in, holds, fades completely out and leaves a brief empty interval before the next begins. Only one skill name exists in the animated display at a time.
+- A browser animation owns the 3.2-second sequence; its completion starts the next name. Offscreen/hidden-tab pauses preserve progress. Explicit pause and manual selection leave a readable, static name. Reduced motion disables animation while retaining controls and the full 27-skill disclosure.
+- Updated skills checks validate the actual appearance, held and fully vanished timeline states, a blank interval, one displayed name, no card markup/border/background/shadow, automatic advance, pause/resume, keyboard selection, real touch swipes, inventory, anchor navigation, reduced motion and static fallback. No new dependencies were added.
+- Build/type checks and all 20 static route checks pass. Total static output is approximately 3.01 MB.
+- The revised skills suite passes at 1440, 390 and 320 pixels with zero accessibility violations, horizontal overflow or browser errors.

@@ -3,25 +3,19 @@ import { Link } from "react-router-dom";
 import { skills } from "../content";
 import { Arrow } from "./UI";
 
-const symbols: Record<string, string> = {
-  Languages: "{ }",
-  Backend: "/api",
-  Frontend: "</>",
-  "Data & ML": "AI",
-  Databases: "DB",
-  Tooling: ">_",
-};
 const tools = Object.entries(skills).flatMap(([group, names]) =>
-  names.map((name) => ({ name, group, symbol: symbols[group] })),
+  names.map((name) => ({ name, group })),
 );
 
-/** Each tool turns toward the reader, holds face-on, then yields to the next. */
+/** A single unframed skill appears, holds, and vanishes before the next. */
 export default function SkillsMotion({
   compact = false,
 }: {
   compact?: boolean;
 }) {
   const stage = useRef<HTMLDivElement>(null);
+  const word = useRef<HTMLDivElement>(null);
+  const animation = useRef<Animation | null>(null);
   const touch = useRef<{ x: number; y: number } | null>(null);
   const [active, setActive] = useState(0);
   const [enhanced, setEnhanced] = useState(false);
@@ -29,8 +23,7 @@ export default function SkillsMotion({
   const [visible, setVisible] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [paused, setPaused] = useState(false);
-  const [inspecting, setInspecting] = useState(false);
-  const running = motion && visible && !hidden && !paused && !inspecting;
+  const running = motion && visible && !hidden && !paused;
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -53,13 +46,56 @@ export default function SkillsMotion({
   }, []);
 
   useEffect(() => {
-    if (!running) return;
-    const timer = window.setTimeout(
-      () => setActive((index) => (index + 1) % tools.length),
-      3200,
+    if (!motion || paused || !word.current) return;
+    const effect = word.current.animate(
+      [
+        {
+          opacity: 0,
+          transform: "translateY(12px)",
+          filter: "blur(5px)",
+          offset: 0,
+        },
+        {
+          opacity: 1,
+          transform: "translateY(0)",
+          filter: "blur(0)",
+          offset: 0.16,
+        },
+        {
+          opacity: 1,
+          transform: "translateY(0)",
+          filter: "blur(0)",
+          offset: 0.68,
+        },
+        {
+          opacity: 0,
+          transform: "translateY(-12px)",
+          filter: "blur(5px)",
+          offset: 0.9,
+        },
+        {
+          opacity: 0,
+          transform: "translateY(-12px)",
+          filter: "blur(5px)",
+          offset: 1,
+        },
+      ],
+      { duration: 3200, fill: "both", easing: "ease-in-out" },
     );
-    return () => window.clearTimeout(timer);
-  }, [running, active]);
+    effect.pause();
+    effect.onfinish = () => setActive((index) => (index + 1) % tools.length);
+    animation.current = effect;
+    return () => {
+      effect.onfinish = null;
+      effect.cancel();
+      animation.current = null;
+    };
+  }, [active, motion, paused]);
+
+  useEffect(() => {
+    if (running) animation.current?.play();
+    else animation.current?.pause();
+  }, [running, active, motion, paused]);
 
   const step = (direction: number) => {
     setPaused(true);
@@ -89,15 +125,8 @@ export default function SkillsMotion({
         className="skill-stage"
         ref={stage}
         role="region"
-        aria-roledescription="carousel"
         aria-label="Skills, one at a time"
         tabIndex={0}
-        onPointerEnter={(event) => {
-          if (event.pointerType === "mouse") setInspecting(true);
-        }}
-        onPointerLeave={() => setInspecting(false)}
-        onFocus={() => setInspecting(true)}
-        onBlur={() => setInspecting(false)}
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
             event.preventDefault();
@@ -120,38 +149,18 @@ export default function SkillsMotion({
           touch.current = null;
         }}
       >
-        <ul className="skill-deck" id="skill-deck" aria-live="off">
-          {tools.map((tool, index) => {
-            const offset = (index - active + tools.length) % tools.length;
-            const position =
-              offset === 0
-                ? "front"
-                : offset === 1
-                  ? "next"
-                  : offset === tools.length - 1
-                    ? "previous"
-                    : offset < tools.length / 2
-                      ? "back-right"
-                      : "back-left";
-            return (
-              <li
-                key={tool.name}
-                className="skill-face"
-                data-position={position}
-                aria-hidden={offset !== 0}
-              >
-                <div className="skill-face-meta mono">
-                  <span>{tool.group}</span>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                </div>
-                <span className="skill-emblem" aria-hidden="true">
-                  {tool.symbol}
-                </span>
-                <h3>{tool.name}</h3>
-              </li>
-            );
-          })}
-        </ul>
+        <div
+          className="skill-word"
+          id="skill-word"
+          key={active}
+          ref={word}
+          aria-live="off"
+        >
+          <span className="skill-word-category mono">
+            {tools[active].group}
+          </span>
+          <h3>{tools[active].name}</h3>
+        </div>
       </div>
       <div
         className="skill-controls"
@@ -162,7 +171,7 @@ export default function SkillsMotion({
           type="button"
           className="skill-step"
           aria-label="Previous skill"
-          aria-controls="skill-deck"
+          aria-controls="skill-word"
           disabled={!enhanced}
           onClick={() => step(-1)}
         >
@@ -181,7 +190,7 @@ export default function SkillsMotion({
           type="button"
           className="skill-step"
           aria-label="Next skill"
-          aria-controls="skill-deck"
+          aria-controls="skill-word"
           disabled={!enhanced}
           onClick={() => step(1)}
         >

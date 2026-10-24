@@ -19,118 +19,28 @@
   padding-bottom: 6px;
 }
 .skill-stage {
-  position: relative;
-  height: 335px;
-  perspective: 1100px;
-  overflow: clip;
-  touch-action: pan-y;
-  background: radial-gradient(ellipse at 50% 100%, #c1121f0d, transparent 65%);
-}
-.skill-stage::after {
-  content: "";
-  position: absolute;
-  bottom: 15px;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #635450, transparent);
-}
-.skill-deck {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  transform-style: preserve-3d;
-}
-.skill-face {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  width: min(340px, calc(100% - 80px));
-  height: 260px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #655650;
-  background: linear-gradient(125deg, #211b1e, #141315 65%);
-  box-shadow: 0 16px 25px -18px #000;
-  backface-visibility: hidden;
-  pointer-events: none;
-  transform: translateX(-50%);
-  transition:
-    transform 0.75s cubic-bezier(0.22, 0.7, 0.2, 1),
-    opacity 0.55s,
-    border-color 0.55s;
-}
-.skill-face::before {
-  content: "";
-  position: absolute;
-  inset: 7px;
-  border: 1px solid #332f2c;
-  pointer-events: none;
-}
-.skill-face[data-position="front"] {
-  z-index: 3;
-  opacity: 1;
-  transform: translateX(-50%) rotateY(0deg) translateZ(35px);
-  border-color: #a18b80;
-}
-.skill-face[data-position="previous"] {
-  z-index: 2;
-  opacity: 0.3;
-  transform: translateX(-137%) rotateY(42deg) translateZ(-110px) scale(0.88);
-}
-.skill-face[data-position="next"] {
-  z-index: 2;
-  opacity: 0.3;
-  transform: translateX(37%) rotateY(-42deg) translateZ(-110px) scale(0.88);
-}
-.skill-face[data-position="back-left"] {
-  z-index: 1;
-  opacity: 0;
-  transform: translateX(-175%) rotateY(70deg) translateZ(-180px) scale(0.7);
-}
-.skill-face[data-position="back-right"] {
-  z-index: 1;
-  opacity: 0;
-  transform: translateX(75%) rotateY(-70deg) translateZ(-180px) scale(0.7);
-}
-.skill-face-meta {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  width: 100%;
-  color: #b4a99e;
-  font-size: 9px;
-}
-.skill-emblem {
   display: grid;
   place-items: center;
-  width: 82px;
-  height: 82px;
-  border: 1px solid var(--red);
-  outline: 1px solid #4a3033;
-  outline-offset: 5px;
-  color: var(--paper);
-  font:
-    28px "IBM Plex Mono",
-    monospace;
-  background: #191416;
+  min-height: 210px;
+  padding: 24px 12px;
+  touch-action: pan-y;
 }
-.skill-face:not([data-position="front"]) .skill-emblem {
-  color: transparent;
+.skill-word {
+  width: 100%;
+  text-align: center;
 }
-.skill-face h3 {
+.skill-word-category {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.skill-word h3 {
   font:
-    500 clamp(20px, 2.5vw, 30px)/1.2 "Playfair Display",
+    500 clamp(30px, 5.5vw, 68px)/1.15 "Playfair Display",
     Georgia,
     serif;
-  text-align: center;
-  min-height: 2.4em;
-  display: grid;
-  place-items: center;
-  width: 100%;
+  color: var(--paper);
   overflow-wrap: anywhere;
 }
 .skill-controls {
@@ -211,28 +121,15 @@
     font-size: 8px;
   }
   .skill-stage {
-    height: 310px;
+    min-height: 190px;
+    padding-inline: 4px;
   }
-  .skill-face {
-    height: 240px;
-    padding: 18px;
-  }
-  .skill-face-meta {
-    font-size: 7px;
-  }
-  .skill-emblem {
-    width: 70px;
-    height: 70px;
-    font-size: 24px;
+  .skill-word h3 {
+    font-size: clamp(28px, 8vw, 40px);
   }
   .skills-inventory-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px 16px;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .skill-face {
-    transition: none;
   }
 }
 @media print {
