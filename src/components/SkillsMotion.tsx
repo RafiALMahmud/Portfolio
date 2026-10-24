@@ -52,7 +52,6 @@ export default function SkillsMotion({
   const animations = useRef<Animation[]>([]);
   const touch = useRef<{ x: number; y: number } | null>(null);
   const [active, setActive] = useState(0);
-  const [enhanced, setEnhanced] = useState(false);
   const [motion, setMotion] = useState(false);
   const [visible, setVisible] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -68,7 +67,6 @@ export default function SkillsMotion({
       setVisible(entry.isIntersecting),
     );
     if (stage.current) observer.observe(stage.current);
-    setEnhanced(true);
     configure();
     visibility();
     preference.addEventListener("change", configure);
@@ -237,32 +235,6 @@ export default function SkillsMotion({
             <SkillLetters name={tools[active].name} />
           </h3>
         </div>
-      </div>
-      <div
-        className="skill-controls"
-        role="group"
-        aria-label="Skill display controls"
-      >
-        <button
-          type="button"
-          className="skill-step"
-          aria-label="Previous skill"
-          aria-controls="skill-word"
-          disabled={!enhanced}
-          onClick={() => step(-1)}
-        >
-          <span aria-hidden="true">&larr;</span>
-        </button>
-        <button
-          type="button"
-          className="skill-step"
-          aria-label="Next skill"
-          aria-controls="skill-word"
-          disabled={!enhanced}
-          onClick={() => step(1)}
-        >
-          <span aria-hidden="true">&rarr;</span>
-        </button>
       </div>
       <details
         className="skills-inventory"

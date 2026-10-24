@@ -28,7 +28,7 @@ Case and project cards use full-surface native links, while separate live-site a
 
 The hero headline forms from scattered, blurred letters and small grains in a single 2.6-second sequence. Its layout is reserved throughout, with one complete accessible heading. Reduced motion and JavaScript-disabled pages show the full text immediately.
 
-Skills appear as unframed lettering on Home and About: the actual font outlines draw letter by letter, fill in, hold, disappear fully, then the next name begins. Previous/next, arrow keys and mobile swipes change the skill; there is no pause button. Opening the full 27-skill list or focusing the display stops motion for reading. Motion also stops offscreen or in a hidden tab. Reduced motion and pages without JavaScript show fully formed letters.
+Skills appear as unframed lettering on Home and About: the actual font outlines draw letter by letter, fill in, hold, disappear fully, then the next name begins. There are no arrow or pause buttons. Arrow keys and mobile swipes can still change the skill. Opening the full 27-skill list or focusing the display stops motion for reading. Motion also stops offscreen or in a hidden tab. Reduced motion and pages without JavaScript show fully formed letters.
 
 ## Verify
 

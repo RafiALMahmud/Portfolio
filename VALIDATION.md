@@ -153,3 +153,9 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - All 40 desktop/mobile route and accessibility checks pass with zero violations, overflow or browser errors.
 - Published source `2ab37c9` as `dpl_5PsWm9Qxdvfd3vhpcwfVvWUiJHkE`. Vercel reported `READY` and verified HTTP 200 at the unchanged https://portfolio-9jtk.vercel.app domain.
 - Public skills checks pass at 1440, 390 and 320 pixels, including real outline construction, filling and disappearance, button removal, glyph coverage/layout for all 27 skills, full-list pause, keyboard/touch navigation, accessibility, reduced motion and JavaScript-disabled fallback.
+
+## Skill arrow removal - 25 October 2026
+
+- Removed both visible previous/next arrows and their toolbar, unused button styles and button-enabled state. Automatic letter construction and disappearance continue; keyboard arrows, touch swipes and the complete skill inventory remain available.
+- Updated the existing skills check to assert that no arrow or motion buttons are rendered and to exercise keyboard/swipe selection instead. Build/type checks and all 20 static route checks pass.
+- The skills suite passes at 1440, 390 and 320 pixels, including drawing/filling/disappearance, all 27 skill glyphs, keyboard/touch selection, reduced motion, accessibility, no overflow and static fallback.

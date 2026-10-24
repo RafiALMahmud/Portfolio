@@ -43,31 +43,6 @@
   color: var(--paper);
   overflow-wrap: anywhere;
 }
-.skill-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  margin-block: 8px 24px;
-}
-.skill-step {
-  min-height: 44px;
-  padding: 10px 15px;
-  color: var(--paper);
-  border: 1px solid #494448;
-  background: #111113;
-}
-.skill-step {
-  width: 44px;
-  padding: 8px;
-  font-size: 20px;
-}
-.skill-step:hover:enabled {
-  border-color: var(--red);
-}
-.skill-step:disabled {
-  color: var(--muted);
-}
 .skills-inventory {
   border-block: 1px solid var(--line);
   padding-block: 17px;
@@ -126,8 +101,7 @@
   }
 }
 @media print {
-  .skill-stage,
-  .skill-controls {
+  .skill-stage {
     display: none;
   }
   .skills-inventory {

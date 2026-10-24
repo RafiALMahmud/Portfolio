@@ -20,7 +20,12 @@ try {
     const board = page.locator(".skills-motion");
     const word = page.locator(".skill-word");
     const name = () => word.locator("h3").getAttribute("aria-label");
-    assert.equal(await page.locator(".skills-motion-toggle").count(), 0);
+    assert.equal(
+      await page
+        .locator(".skills-motion-toggle, .skill-step, .skill-controls")
+        .count(),
+      0,
+    );
     assert.equal(await board.getAttribute("data-running"), "false");
     await page.locator(".skill-stage").scrollIntoViewIfNeeded();
     await page.mouse.move(5, 5);
@@ -96,12 +101,10 @@ try {
     await page.waitForTimeout(3350);
     assert.equal(await board.getAttribute("data-active"), current);
     assert.equal(await page.locator(".skills-inventory li").count(), 27);
-    await page.getByRole("button", { name: "Next skill", exact: true }).click();
+    await page.locator(".skill-stage").focus();
+    await page.keyboard.press("ArrowRight");
     assert.equal(await name(), "JavaScript / TypeScript");
-    await page
-      .getByRole("button", { name: "Previous skill", exact: true })
-      .focus();
-    await page.keyboard.press("Enter");
+    await page.keyboard.press("ArrowLeft");
     assert.equal(await name(), "Java");
     await page.locator(".skill-stage").focus();
     await page.keyboard.press("ArrowLeft");
@@ -139,7 +142,8 @@ try {
         .evaluate((el) => el.getAnimations({ subtree: true }).length),
       0,
     );
-    await page.getByRole("button", { name: "Next skill", exact: true }).click();
+    await page.locator(".skill-stage").focus();
+    await page.keyboard.press("ArrowRight");
     assert.equal(await name(), "PHP");
     assert.equal(
       await word
@@ -160,9 +164,7 @@ try {
         ),
         false,
       );
-      await page
-        .getByRole("button", { name: "Next skill", exact: true })
-        .click();
+      await page.keyboard.press("ArrowRight");
     }
     assert.equal(
       await page.evaluate(
@@ -183,7 +185,7 @@ try {
     assert.deepEqual(errors, []);
     await context.close();
     console.log(
-      `${width}px: no pause button, real glyph outlines build in order and fill, the word vanishes, the full list stops motion, and keyboard/touch/reduced-motion/accessibility checks pass.`,
+      `${width}px: no motion or arrow buttons, real glyph outlines build in order and fill, the word vanishes, the full list stops motion, and keyboard/touch/reduced-motion/accessibility checks pass.`,
     );
   }
   const context = await browser.newContext({ javaScriptEnabled: false });
