@@ -51,19 +51,48 @@ try {
         fill: initial.fillOpacity,
         dash: parseFloat(initial.strokeDashoffset),
       };
-      seek(350);
+      const firstLetter = effects.find(
+        (effect) => effect.effect.target === paths[0],
+      );
+      const letterTiming = firstLetter.effect.getTiming();
+      const drawingTime =
+        Number(letterTiming.delay) + Number(letterTiming.duration) * 0.4;
+      const grains = el.querySelectorAll(".skill-grain");
+      const initialDepth = new DOMMatrixReadOnly(
+        getComputedStyle(grains[0]).transform,
+      ).m43;
+      seek(900);
+      const flight = {
+        depth: new DOMMatrixReadOnly(getComputedStyle(grains[0]).transform).m43,
+        opacity: Number(getComputedStyle(grains[0]).opacity),
+      };
+      seek(drawingTime);
       const drawing = {
         fill: getComputedStyle(paths[0]).fillOpacity,
         dash: parseFloat(getComputedStyle(paths[0]).strokeDashoffset),
         laterDash: parseFloat(getComputedStyle(paths[2]).strokeDashoffset),
       };
-      seek(1500);
+      const lastLetter = effects.find(
+        (effect) => effect.effect.target === paths[paths.length - 1],
+      );
+      const lastTiming = lastLetter.effect.getTiming();
+      seek(Number(lastTiming.delay) + Number(lastTiming.duration) + 250);
       const held = Array.from(paths).map(
         (path) => getComputedStyle(path).fillOpacity,
       );
       seek(Number(master.effect.getTiming().duration) - 100);
       const vanished = getComputedStyle(el).opacity;
-      return { empty, drawing, held, vanished };
+      return {
+        empty,
+        drawing,
+        held,
+        vanished,
+        letterDuration: Number(letterTiming.duration),
+        grainCount: grains.length,
+        initialDepth,
+        flight,
+        drawingTime,
+      };
     });
     assert.deepEqual(stages.empty, { fill: "0", dash: 1 });
     assert.equal(stages.drawing.fill, "0");
@@ -77,10 +106,29 @@ try {
     );
     assert.deepEqual(stages.held, ["1", "1", "1"]);
     assert.equal(stages.vanished, "0");
-    await word.evaluate((el) => {
+    assert(
+      stages.letterDuration >= 1800,
+      "Letter construction should take roughly twice as long as before",
+    );
+    assert(
+      stages.grainCount > 0 && stages.grainCount <= (width < 700 ? 48 : 84),
+    );
+    assert(
+      stages.initialDepth < -500,
+      "Particles should start well behind the text plane",
+    );
+    assert(
+      stages.flight.depth > stages.initialDepth && stages.flight.depth < 0,
+    );
+    assert(stages.flight.opacity > 0);
+    assert.equal(
+      await word.locator(".skill-particles").getAttribute("aria-hidden"),
+      "true",
+    );
+    await word.evaluate((el, time) => {
       for (const effect of el.getAnimations({ subtree: true }))
-        effect.currentTime = 350;
-    });
+        effect.currentTime = time;
+    }, stages.drawingTime);
     await page.screenshot({ path: `test-results/skills-drawing-${width}.png` });
     await word.evaluate((el) =>
       el
@@ -97,6 +145,7 @@ try {
       await word.evaluate((el) => el.getAnimations({ subtree: true }).length),
       0,
     );
+    assert.equal(await word.locator(".skill-grain").count(), 0);
     const current = await board.getAttribute("data-active");
     await page.waitForTimeout(3350);
     assert.equal(await board.getAttribute("data-active"), current);
@@ -185,7 +234,7 @@ try {
     assert.deepEqual(errors, []);
     await context.close();
     console.log(
-      `${width}px: no motion or arrow buttons, real glyph outlines build in order and fill, the word vanishes, the full list stops motion, and keyboard/touch/reduced-motion/accessibility checks pass.`,
+      `${width}px: no motion or arrow buttons, slow glyph outlines fill as bounded 3D particles arrive from behind, the word vanishes, the full list stops motion, and keyboard/touch/reduced-motion/accessibility checks pass.`,
     );
   }
   const context = await browser.newContext({ javaScriptEnabled: false });

@@ -30,6 +30,8 @@ The hero headline forms from scattered, blurred letters and small grains in a si
 
 Skills appear as unframed lettering on Home and About: the actual font outlines draw letter by letter, fill in, hold, disappear fully, then the next name begins. There are no arrow or pause buttons. Arrow keys and mobile swipes can still change the skill. Opening the full 27-skill list or focusing the display stops motion for reading. Motion also stops offscreen or in a hidden tab. Reduced motion and pages without JavaScript show fully formed letters.
 
+Letter construction now takes about twice as long. Small paper and red particles emerge from behind the text plane and converge onto sampled points on the real glyph contours before fading into the letters. Particle counts are capped at 48 on phones and 84 on larger screens; resize, navigation and reduced-motion changes clean up the effect.
+
 ## Verify
 
 With `npm run preview` running in another terminal:
@@ -60,6 +62,7 @@ The browser check covers every route at 1440px and 390px, accessibility rules, o
 - `src/components/CaseFile.tsx`: in-view case-file assembly, profile-file link and motion-preference lifecycle.
 - `src/components/FormingHeadline.tsx`: finite letter formation with static and reduced-motion fallbacks.
 - `src/components/SkillsMotion.tsx` and `src/skills.css`: letter-outline construction, single-name disappearance, navigation controls and static inventory. The skill names still come from `src/content.ts`. `src/data/skillGlyphs.json` contains outlines derived from the existing Playfair font; the optional `scripts/generate-skill-glyphs.py` helper regenerates them with fontTools and Brotli. Normal builds require no Python packages.
+- `src/components/skillParticles.ts`: bounded particles sampled from glyph paths, projected from behind the text with CSS 3D and native browser animations.
 
 Add a project object with a unique slug, verified description, tags, stack and source note. A deep-linkable project page and sitemap entry are generated automatically. Add a live-site object to generate its case page. For a new page type, add a loader and route metadata in `src/routing.ts`, then implement its component. Run the build and checks before pushing. Keep unknown facts out of the public copy and mark genuine source gaps with `TODO` comments.
 

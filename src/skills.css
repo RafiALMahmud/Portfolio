@@ -19,6 +19,8 @@
   padding-bottom: 6px;
 }
 .skill-stage {
+  position: relative;
+  overflow: clip;
   display: grid;
   place-items: center;
   min-height: 210px;
@@ -26,16 +28,21 @@
   touch-action: pan-y;
 }
 .skill-word {
+  position: relative;
   width: 100%;
   text-align: center;
 }
 .skill-word-category {
+  position: relative;
+  z-index: 1;
   display: block;
   margin-bottom: 18px;
   color: var(--muted);
   font-size: 10px;
 }
 .skill-word h3 {
+  position: relative;
+  z-index: 1;
   font:
     500 clamp(30px, 5.5vw, 68px)/1.15 "Playfair Display",
     Georgia,
@@ -130,4 +137,43 @@
   stroke-linecap: round;
   stroke-opacity: 0;
   stroke-dasharray: 1;
+}
+.skill-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  perspective: 700px;
+  perspective-origin: 50% 65%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.skill-grain {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  color: #ede6da;
+  background: currentColor;
+  opacity: 0;
+  box-shadow: 0 0 5px currentColor;
+  will-change: transform, opacity;
+}
+.skill-grain::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  width: 1px;
+  height: 8px;
+  background: linear-gradient(to top, currentColor, transparent);
+  rotate: var(--grain-angle);
+  transform-origin: bottom;
+  opacity: 0.45;
+}
+.skill-grain-red {
+  color: #d76b73;
+}
+@media (prefers-reduced-motion: reduce), print {
+  .skill-particles {
+    display: none;
+  }
 }

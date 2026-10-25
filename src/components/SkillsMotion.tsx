@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { skills } from "../content";
 import { Arrow } from "./UI";
 import font from "../data/skillGlyphs.json";
+import { createSkillParticles } from "./skillParticles";
+
+const LETTER_DRAW_MS = 1900;
+const LETTER_STAGGER_MS = 140;
+const PARTICLE_LEAD_MS = 450;
 
 const tools = Object.entries(skills).flatMap(([group, names]) =>
   names.map((name) => ({ name, group })),
@@ -57,6 +62,7 @@ export default function SkillsMotion({
   const [hidden, setHidden] = useState(false);
   const [inventoryOpen, setInventoryOpen] = useState(false);
   const [inspecting, setInspecting] = useState(false);
+  const [layoutRevision, setLayoutRevision] = useState(0);
   const running = motion && visible && !hidden && !inventoryOpen && !inspecting;
 
   useEffect(() => {
@@ -67,12 +73,21 @@ export default function SkillsMotion({
       setVisible(entry.isIntersecting),
     );
     if (stage.current) observer.observe(stage.current);
+    let lastWidth = stage.current?.clientWidth;
+    const resize = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width !== lastWidth) {
+        lastWidth = entry.contentRect.width;
+        setLayoutRevision((value) => value + 1);
+      }
+    });
+    if (stage.current) resize.observe(stage.current);
     configure();
     visibility();
     preference.addEventListener("change", configure);
     document.addEventListener("visibilitychange", visibility);
     return () => {
       observer.disconnect();
+      resize.disconnect();
       preference.removeEventListener("change", configure);
       document.removeEventListener("visibilitychange", visibility);
     };
@@ -81,10 +96,13 @@ export default function SkillsMotion({
   useEffect(() => {
     if (!motion || inventoryOpen || inspecting || !word.current) return;
     const paths = Array.from(
-      word.current.querySelectorAll(".skill-letter path"),
+      word.current.querySelectorAll<SVGPathElement>(".skill-letter path"),
     );
-    const build = 900 + Math.max(0, paths.length - 1) * 70;
-    const duration = build + 1950;
+    const build =
+      PARTICLE_LEAD_MS +
+      LETTER_DRAW_MS +
+      Math.max(0, paths.length - 1) * LETTER_STAGGER_MS;
+    const duration = build + 2600;
     const sequence = word.current.animate(
       [
         {
@@ -97,13 +115,13 @@ export default function SkillsMotion({
           opacity: 1,
           transform: "translateY(0)",
           filter: "blur(0)",
-          offset: (build + 1200) / duration,
+          offset: (build + 1600) / duration,
         },
         {
           opacity: 0,
           transform: "translateY(-10px)",
           filter: "blur(4px)",
-          offset: (build + 1700) / duration,
+          offset: (build + 2250) / duration,
         },
         {
           opacity: 0,
@@ -145,8 +163,8 @@ export default function SkillsMotion({
           },
         ],
         {
-          duration: 900,
-          delay: index * 70,
+          duration: LETTER_DRAW_MS,
+          delay: PARTICLE_LEAD_MS + index * LETTER_STAGGER_MS,
           fill: "both",
           easing: "ease-in-out",
         },
@@ -154,19 +172,26 @@ export default function SkillsMotion({
       effect.pause();
       return effect;
     });
-    animations.current = [sequence, ...letters];
+    const particles = createSkillParticles(
+      word.current,
+      paths,
+      LETTER_STAGGER_MS,
+    );
+    const field = word.current.querySelector(".skill-particles");
+    animations.current = [sequence, ...letters, ...particles];
     return () => {
       sequence.onfinish = null;
       animations.current.forEach((effect) => effect.cancel());
       animations.current = [];
+      field?.replaceChildren();
     };
-  }, [active, motion, inventoryOpen, inspecting]);
+  }, [active, motion, inventoryOpen, inspecting, layoutRevision]);
 
   useEffect(() => {
     animations.current.forEach((effect) =>
       running ? effect.play() : effect.pause(),
     );
-  }, [running, active, motion, inventoryOpen, inspecting]);
+  }, [running, active, motion, inventoryOpen, inspecting, layoutRevision]);
 
   const step = (direction: number) => {
     setActive((index) => (index + direction + tools.length) % tools.length);
@@ -228,6 +253,7 @@ export default function SkillsMotion({
           ref={word}
           aria-live="off"
         >
+          <div className="skill-particles" aria-hidden="true" />
           <span className="skill-word-category mono">
             {tools[active].group}
           </span>

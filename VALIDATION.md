@@ -160,3 +160,12 @@ Published source: `e3cc468600289a99b1e6025aa8c784846ff9ab90`.
 - Updated the existing skills check to assert that no arrow or motion buttons are rendered and to exercise keyboard/swipe selection instead. Build/type checks and all 20 static route checks pass.
 - The skills suite passes at 1440, 390 and 320 pixels, including drawing/filling/disappearance, all 27 skill glyphs, keyboard/touch selection, reduced motion, accessibility, no overflow and static fallback.
 - Published source `71f68f9` as `dpl_4B2FKtjh1y2EZ1DhSNk7FuH6kq9F`; Vercel reported `READY` and verified HTTP 200 at https://portfolio-9jtk.vercel.app. Public desktop and phone checks confirm no skill buttons or empty toolbar, continuing automatic glyph construction and no horizontal overflow.
+
+## Slower construction and particles from behind - 25 October 2026
+
+- Slowed each glyph from 900 to 1900ms and increased the stagger from 70 to 140ms. A 450ms lead lets particles arrive before the outlines; fully formed text now holds for 1600ms before disappearing. The single-name, unframed presentation and absence of buttons are preserved.
+- Added original paper/red grains that travel from a negative-Z back plane through perspective and converge onto sampled points on the actual SVG glyph contours. They fade into the forming text and never pass in front of it. Counts are capped at 48 on phones and 84 on larger screens.
+- Geometry reads are batched before node insertion; native browser animations handle movement with no JavaScript frame loop or new dependency. Hidden/offscreen state pauses the sequence, viewport-width changes recalculate targets, and focus/full-list/reduced-motion/navigation cleanup removes all grains.
+- Skills checks pass at 1440, 390 and 320 pixels: slower stroke duration, staggered construction/fills/disappearance, bounded particle counts, negative initial depth, visible travel toward the text plane, hidden decorative semantics, particle cleanup, controls remaining absent, keyboard/swipe selection, all 27 glyph sets, reduced motion, static fallback and zero accessibility violations/overflow/browser errors.
+- Build/type checks and all 20 static route checks pass. Static output remains approximately 3.06 MB, including the WASE video; the shared skills chunk is approximately 19.00 kB gzip.
+- All 40 desktop/mobile route and accessibility checks pass with zero violations, horizontal overflow or browser errors.
