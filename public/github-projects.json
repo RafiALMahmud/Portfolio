@@ -5,16 +5,6 @@
   "windowDays": 30,
   "repositories": [
     {
-      "name": "Portfolio",
-      "description": "",
-      "language": "TypeScript",
-      "topics": [],
-      "codeFiles": 47,
-      "recentCommits": 29,
-      "activityScore": 11.19,
-      "lastCommitAt": "2026-11-02T13:33:43Z"
-    },
-    {
       "name": "bari.com",
       "description": "",
       "language": "Python",

@@ -42,6 +42,8 @@ for (const file of [
 const repo = (name) => ({ name, owner: { login: "RafiALMahmud" } });
 assert(!eligibleRepository(repo("CSE")));
 assert(!eligibleRepository(repo("Bracu-Labmid")));
+assert(!eligibleRepository(repo("Portfolio")));
+assert(!eligibleRepository(repo("PORTFOLIO")));
 assert(eligibleRepository(repo("Cse330")));
 assert(!eligibleRepository({ ...repo("secret"), private: true }));
 const commit = (date, extra = {}) => ({
@@ -183,7 +185,7 @@ try {
     assert.equal(
       await page
         .locator(
-          'a[href="/projects/github/CSE"], a[href="/projects/github/Bracu-Labmid"]',
+          'a[href="/projects/github/CSE"], a[href="/projects/github/Bracu-Labmid"], a[href="/projects/github/Portfolio"]',
         )
         .count(),
       0,

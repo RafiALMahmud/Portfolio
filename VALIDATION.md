@@ -2,6 +2,9 @@
 
 ## Automatic GitHub projects and Software Engineer CV - 2 November 2026
 
+- Portfolio repository exclusion: removed it from the checked-in feed, scheduled-sync eligibility, client catalogue and runtime project-name validation. Other repositories keep syncing, and WASE remains pinned. Build/type/static checks pass for 34 routes. The sync regression suite includes case-insensitive Portfolio exclusion.
+- The complete desktop sync check passed. Its subsequent phone run exhausted local browser memory; focused checks at 390 and 320 pixels pass for Home/archive feed loading, Portfolio absence, file sorting, WASE pinning, no overflow and no page errors.
+
 - Follow-up: WASE is pinned before every other project in the shared sorter, including the home preview, both archive sort orders, static fallback and refreshed GitHub feeds. Home now reads "Cases worked on." The activity option is labeled "Most activity"; existing tag filters remain intact. Build/type/static checks and the updated sync suite pass at 1440, 390 and 320 pixels, including synthetic repositories with greater activity and file counts than WASE.
 - Follow-up source `5639ae4` was published as `dpl_J8uBbJxhJnSnNLx2pKErnqA2En8G` at the unchanged production domain. Vercel reports READY and HTTP 200. Live desktop/phone checks confirm the new heading, WASE first on Home and both archive sort orders, and successful navigation to the WASE research file.
 

@@ -21,7 +21,7 @@ export interface GitHubFeed {
 }
 export const feedUrl =
   "https://raw.githubusercontent.com/RafiALMahmud/Portfolio/main/public/github-projects.json";
-const excluded = new Set(["cse", "bracu-labmid", "rafialmahmud"]);
+const excluded = new Set(["portfolio", "cse", "bracu-labmid", "rafialmahmud"]);
 export const validRepositoryName = (name: string) =>
   /^[A-Za-z0-9_.-]{1,100}$/.test(name) && !excluded.has(name.toLowerCase());
 
@@ -64,45 +64,47 @@ export function validFeed(value: unknown): value is GitHubFeed {
 
 export function projectCatalogue(feed: GitHubFeed): Project[] {
   const matched = new Set<string>();
-  const catalogue: Project[] = feed.repositories.map((repo) => {
-    const curated = projects.find(
-      (p) =>
-        p.repository?.split("/").pop()?.toLowerCase() ===
-        repo.name.toLowerCase(),
-    );
-    if (curated) matched.add(curated.slug);
-    const web = [
-      "JavaScript",
-      "TypeScript",
-      "PHP",
-      "Blade",
-      "CSS",
-      "HTML",
-      "Vue",
-      "Svelte",
-    ].includes(repo.language);
-    return {
-      ...(curated || {
-        slug: "github/" + repo.name,
-        title: repo.name,
-        language: repo.language,
-        tags: [...new Set([repo.language, ...(web ? ["Web"] : [])])],
-        description:
-          repo.description ||
-          `${repo.name}: a ${repo.language} project from my public GitHub archive.`,
-        stack: [repo.language, ...repo.topics].slice(0, 6),
-        repository: "https://github.com/RafiALMahmud/" + repo.name,
-        sourceNote:
-          "Public GitHub repository metadata, default-branch commit history and source-file tree. Synced automatically every six hours. Features are described only when documented by the repository owner.",
-      }),
-      activity: {
-        codeFiles: repo.codeFiles,
-        recentCommits: repo.recentCommits,
-        activityScore: repo.activityScore,
-        lastCommitAt: repo.lastCommitAt,
-      },
-    };
-  });
+  const catalogue: Project[] = feed.repositories
+    .filter((repo) => !excluded.has(repo.name.toLowerCase()))
+    .map((repo) => {
+      const curated = projects.find(
+        (p) =>
+          p.repository?.split("/").pop()?.toLowerCase() ===
+          repo.name.toLowerCase(),
+      );
+      if (curated) matched.add(curated.slug);
+      const web = [
+        "JavaScript",
+        "TypeScript",
+        "PHP",
+        "Blade",
+        "CSS",
+        "HTML",
+        "Vue",
+        "Svelte",
+      ].includes(repo.language);
+      return {
+        ...(curated || {
+          slug: "github/" + repo.name,
+          title: repo.name,
+          language: repo.language,
+          tags: [...new Set([repo.language, ...(web ? ["Web"] : [])])],
+          description:
+            repo.description ||
+            `${repo.name}: a ${repo.language} project from my public GitHub archive.`,
+          stack: [repo.language, ...repo.topics].slice(0, 6),
+          repository: "https://github.com/RafiALMahmud/" + repo.name,
+          sourceNote:
+            "Public GitHub repository metadata, default-branch commit history and source-file tree. Synced automatically every six hours. Features are described only when documented by the repository owner.",
+        }),
+        activity: {
+          codeFiles: repo.codeFiles,
+          recentCommits: repo.recentCommits,
+          activityScore: repo.activityScore,
+          lastCommitAt: repo.lastCommitAt,
+        },
+      };
+    });
   return [...catalogue, ...projects.filter((p) => !matched.has(p.slug))];
 }
 

@@ -3,6 +3,7 @@ import path from "node:path";
 // Exact names, case-insensitive. Preserve the owner's explicit exclusions.
 export const owner = "RafiALMahmud";
 export const excludedRepositories = new Set([
+  "portfolio",
   "cse",
   "bracu-labmid",
   owner.toLowerCase(),

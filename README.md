@@ -24,6 +24,8 @@ Fonts and optimized WebP images are self-hosted. Hashed assets receive immutable
 
 WASE is always pinned first on Home and in both archive sort orders. The home heading is "Cases worked on." Filters continue to show matching projects; other projects retain their automatic ranking.
 
+The Portfolio repository is excluded from both the sync job and client catalogue, including older snapshots, at the owner's request.
+
 `.github/workflows/sync-github.yml` runs every six hours (00:23, 06:23, 12:23 and 18:23 UTC), on relevant source changes, or manually from GitHub Actions. It uses GitHub's automatically supplied, short-lived `GITHUB_TOKEN`; no personal token, AI session, npm install or Vercel secret is required. `scripts/sync-github.mjs` paginates public owned repositories and 30-day default-branch commit histories, counts coding files, then commits `public/github-projects.json` only after the whole sync succeeds. The timestamp keeps the publishing repository active even when projects are quiet. GitHub may delay scheduled runs.
 
 The static website ships a complete snapshot, then reads the latest public JSON directly from this repository, once on opening and every 15 minutes while visible. Data changes do not require redeployment. GitHub outages or invalid responses preserve the last good archive. New repositories get full clickable case files and direct-link support immediately; known projects retain their verified descriptions and existing URLs. Home shows the top three ranked projects. Research and documented work without public repositories remain available.
