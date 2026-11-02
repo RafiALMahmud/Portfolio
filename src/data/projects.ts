@@ -9,11 +9,31 @@ export interface Project {
   repository?: string;
   external?: string;
   sourceNote: string;
+  activity?: {
+    codeFiles: number;
+    recentCommits: number;
+    activityScore: number;
+    lastCommitAt: string;
+  };
 }
 const github = "https://github.com/RafiALMahmud/";
 // README summaries retrieved 21 October 2026. Stored locally; builds never fetch GitHub.
 // Generic Laravel scaffold READMEs do not substantiate application-specific features.
 export const projects: Project[] = [
+  {
+    slug: "bari",
+    title: "bari: Student Housing and Booking",
+    language: "Python",
+    tags: ["Python", "Web"],
+    description:
+      "A multi-role rental platform with property management, messaging and user-confirmed bookings.",
+    body: "I developed JWT-secured FastAPI endpoints and React interfaces, moved persistence from SQLite to PostgreSQL with Alembic, and implemented permission-scoped messaging and booking validation. Backend and frontend regression tests cover concurrent conversations and access rules.",
+    stack: ["Python", "FastAPI", "React", "PostgreSQL", "Alembic"],
+    repository: github + "bari.com",
+    external: "https://bari-two.vercel.app/",
+    sourceNote:
+      "Software Engineer CV supplied in Rafi_Updated_CVs_2026.zip on 2 November 2026.",
+  },
   {
     slug: "wase",
     title: "WASE",

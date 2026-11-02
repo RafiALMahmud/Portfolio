@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { home, person } from "../content";
-import { projects } from "../data/projects";
+import { useProjectFeed } from "../components/useProjectFeed";
 import { liveSites } from "../data/liveSites";
 import CaseFile from "../components/CaseFile";
 import FormingHeadline from "../components/FormingHeadline";
@@ -15,6 +15,7 @@ import {
 } from "../components/UI";
 
 export default function Home() {
+  const { projects } = useProjectFeed();
   return (
     <>
       <section className="hero halftone">
@@ -73,10 +74,13 @@ export default function Home() {
       <section className="work-section">
         <SectionHeading
           index="02"
-          title="From the case files."
+          title="Recently on the desk."
           to="/projects"
           link="Browse the archive"
         />
+        <p className="project-sync-note">
+          Automatically ordered by recent GitHub activity, then code-file count.
+        </p>
         <div className="grid gap-5 md:grid-cols-3">
           {projects.slice(0, 3).map((p, i) => (
             <ProjectCard key={p.slug} project={p} index={i} />

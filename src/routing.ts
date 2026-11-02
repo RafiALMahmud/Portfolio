@@ -1,7 +1,11 @@
 import type { ComponentType } from "react";
-import { projects } from "./data/projects";
+import {
+  initialProjects as projects,
+  validRepositoryName,
+} from "./data/projectFeed";
 import { liveSites } from "./data/liveSites";
 import { person, research } from "./content";
+import type { Project } from "./data/projects";
 
 export type PageProps = { path: string };
 export const routes = [
@@ -33,6 +37,11 @@ export function pageKey(path: string): keyof typeof loaders {
   if (path === "/projects") return "projects";
   if (path === "/projects/wase") return "wase";
   if (projects.some((p) => path === "/projects/" + p.slug)) return "project";
+  if (
+    path.startsWith("/projects/github/") &&
+    validRepositoryName(path.slice("/projects/github/".length))
+  )
+    return "project";
   if (path === "/about") return "about";
   if (path === "/resume") return "resume";
   if (path === "/contact") return "contact";
@@ -43,9 +52,9 @@ export async function loadPage(
 ): Promise<ComponentType<PageProps>> {
   return (await loaders[pageKey(path)]()).default;
 }
-export function metadata(path: string) {
+export function metadata(path: string, catalogue: Project[] = projects) {
   const live = liveSites.find((s) => path === "/live/" + s.slug);
-  const project = projects.find((p) => path === "/projects/" + p.slug);
+  const project = catalogue.find((p) => path === "/projects/" + p.slug);
   const base: Record<string, [string, string]> = {
     "/": [
       "Rafi Al Mahmud · Backend Developer",
@@ -57,7 +66,7 @@ export function metadata(path: string) {
     ],
     "/projects": [
       "Case files",
-      "Browse backend development, Python, PHP and computer vision research projects, with locally stored GitHub project summaries.",
+      "Explore Rafi Al Mahmud’s projects, automatically synced from GitHub and ordered by recent activity and source-code file counts.",
     ],
     "/about": [
       "The person behind the files",
@@ -72,7 +81,7 @@ export function metadata(path: string) {
       "Contact Rafi Al Mahmud by email or phone. Based in Dhaka / Chattogram, Bangladesh. Find GitHub, LinkedIn and the latest CV.",
     ],
   };
-  const known = routes.includes(path);
+  const known = routes.includes(path) || Boolean(project);
   const [title, description] = live
     ? [live.title, live.description]
     : project

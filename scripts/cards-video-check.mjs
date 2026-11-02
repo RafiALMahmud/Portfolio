@@ -46,7 +46,7 @@ try {
     await popup.close();
 
     await page.goto(origin + "/projects", { waitUntil: "networkidle" });
-    const primary = page.locator(".card-file-link").first();
+    const primary = page.locator('.card-file-link[href="/projects/wase"]');
     await primary.focus();
     await page.keyboard.press("Enter");
     await page.getByRole("heading", { name: /WASE: Weather/ }).waitFor();

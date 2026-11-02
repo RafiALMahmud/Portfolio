@@ -1,12 +1,26 @@
 import { Link } from "react-router-dom";
-import { projects } from "../data/projects";
+import { useProjectFeed } from "../components/useProjectFeed";
+import ProjectActivity from "../components/ProjectActivity";
+import NotFound from "./NotFound";
 import { Arrow, FileHeader, Tags } from "../components/UI";
 import type { PageProps } from "../routing";
 export default function Project({ path }: PageProps) {
+  const { projects, checked } = useProjectFeed();
   const index = projects.findIndex((p) => path === "/projects/" + p.slug),
     p = projects[index];
   const previous = projects[(index + projects.length - 1) % projects.length],
     next = projects[(index + 1) % projects.length];
+  if (!p) {
+    if (checked) return <NotFound />;
+    return (
+      <FileHeader
+        number="P—INDEX"
+        title="Opening the case file…"
+        label="PROJECTS"
+        intro="Checking the latest public project archive."
+      />
+    );
+  }
   return (
     <>
       <FileHeader
@@ -19,6 +33,7 @@ export default function Project({ path }: PageProps) {
       </FileHeader>
       <div className="document-page page-section">
         <Tags items={p.stack.length ? p.stack : [p.language]} />
+        <ProjectActivity project={p} />
         {p.body && (
           <section>
             <h2>What it does.</h2>

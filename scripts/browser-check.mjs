@@ -53,8 +53,15 @@ try {
     }
     await page.goto(origin + "/projects");
     await page.getByRole("button", { name: "PHP", exact: true }).click();
-    assert.match(await page.getByRole("status").innerText(), /4 FILES FOUND/);
-    assert.equal(await page.locator(".project-card").count(), 4);
+    const phpCards = await page.locator(".project-card").count();
+    assert(
+      phpCards >= 4,
+      "Curated PHP projects remain present alongside synced repositories",
+    );
+    assert.match(
+      await page.getByRole("status").innerText(),
+      new RegExp(`${phpCards} FILES FOUND`),
+    );
     if (width === 390) {
       await page.getByRole("button", { name: "Open navigation" }).click();
       await page

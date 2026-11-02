@@ -6,7 +6,7 @@ export default function Resume() {
         number="R—001"
         title="The full record."
         label="RESUME"
-        intro="Education, research and applied experience. The latest CV, in one place."
+        intro="Education, research and applied experience. My latest Software Engineer CV, in one place."
       />
       <section className="page-section">
         <div className="resume-toolbar">
@@ -21,7 +21,7 @@ export default function Resume() {
           >
             Open in new tab ↗
           </a>
-          <span className="mono">PDF / UPDATED 21 OCT 2026</span>
+          <span className="mono">SOFTWARE ENGINEER / UPDATED 02 NOV 2026</span>
         </div>
         <object
           className="pdf-viewer"

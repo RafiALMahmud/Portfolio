@@ -2,10 +2,12 @@ import { useEffect, useRef, useState, type ComponentType } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { loadPage, metadata, type PageProps } from "./routing";
 import { person } from "./content";
+import { useProjectFeed } from "./components/useProjectFeed";
 
 function Head({ path }: { path: string }) {
+  const { projects } = useProjectFeed();
   useEffect(() => {
-    const m = metadata(path);
+    const m = metadata(path, projects);
     document.title = m.title;
     const set = (attribute: string, name: string, content: string) => {
       let el = document.head.querySelector<HTMLMetaElement>(
@@ -38,7 +40,7 @@ function Head({ path }: { path: string }) {
       document.head.append(canonical);
     }
     canonical.href = m.canonical;
-  }, [path]);
+  }, [path, projects]);
   return null;
 }
 
@@ -121,8 +123,20 @@ export default function App({
         }),
       { threshold: 0.08 },
     );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    const observeNew = () =>
+      document
+        .querySelectorAll(".reveal:not(.is-visible)")
+        .forEach((el) => observer.observe(el));
+    observeNew();
+    const additions = new MutationObserver((records) => {
+      if (records.some((record) => record.addedNodes.length)) observeNew();
+    });
+    if (main.current)
+      additions.observe(main.current, { childList: true, subtree: true });
+    return () => {
+      observer.disconnect();
+      additions.disconnect();
+    };
   }, [loaded.path]);
   useEffect(() => {
     const close = (event: KeyboardEvent) => {

@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { results } from "../content";
 import type { LiveSite } from "../data/liveSites";
 import type { Project } from "../data/projects";
+import ProjectActivity from "./ProjectActivity";
 
 export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? "↗" : "↗"}</span>;
@@ -218,6 +219,7 @@ export function ProjectCard({
       </h3>
       {project.description && <p>{project.description}</p>}
       <Tags items={project.stack.slice(0, 3)} />
+      <ProjectActivity project={project} />
       <Link className="text-link" to={"/projects/" + project.slug}>
         Read the file <Arrow />
       </Link>

@@ -18,7 +18,17 @@ npm run preview
 
 The production build type-checks, creates the client bundle, builds a temporary React server-rendering entry in `.ssr/`, then renders every route into `dist/`. The temporary server entry is never deployed. `dist/` is the complete deployment artifact; sitemap and robots files are generated there. The build works offline after dependencies are installed.
 
-Fonts and optimized WebP images are self-hosted. Hashed assets receive immutable caching on Vercel. The latest downloaded Drive CV is `public/cv.pdf`; it is not fetched during builds.
+Fonts and optimized WebP images are self-hosted. Hashed assets receive immutable caching on Vercel. `public/cv.pdf` is the Software Engineer PDF from the owner's `Rafi_Updated_CVs_2026.zip`, supplied 2 November 2026. All existing CV links use the same URL, with revalidation to avoid stale downloads.
+
+## Automatic GitHub projects
+
+`.github/workflows/sync-github.yml` runs every six hours (00:23, 06:23, 12:23 and 18:23 UTC), on relevant source changes, or manually from GitHub Actions. It uses GitHub's automatically supplied, short-lived `GITHUB_TOKEN`; no personal token, AI session, npm install or Vercel secret is required. `scripts/sync-github.mjs` paginates public owned repositories and 30-day default-branch commit histories, counts coding files, then commits `public/github-projects.json` only after the whole sync succeeds. The timestamp keeps the publishing repository active even when projects are quiet. GitHub may delay scheduled runs.
+
+The static website ships a complete snapshot, then reads the latest public JSON directly from this repository, once on opening and every 15 minutes while visible. Data changes do not require redeployment. GitHub outages or invalid responses preserve the last good archive. New repositories get full clickable case files and direct-link support immediately; known projects retain their verified descriptions and existing URLs. Home shows the top three ranked projects. Research and documented work without public repositories remain available.
+
+Default ranking sums recent human, non-merge commits over 30 days with a seven-day half-life, then uses code-file count to break ties. A second sort orders by code-file count first. This measures visible commit activity, not effort or hours. Counts include code, templates, styles, SQL and notebooks, excluding dependency/build/generated directories, minified files, declaration files and non-code assets. Large truncated trees are traversed fully rather than reported as exact partial counts. CSE, Bracu-Labmid and the profile README repository stay excluded; archived/private/disabled and zero-code repositories are omitted. Forks require Rafi-authored recent commits, except the explicitly documented bari.com project.
+
+For local data refresh use `GITHUB_TOKEN` in the process environment and run `npm run sync:github`. Never put a token in browser code or commit it. To change exclusions or file classification, edit `scripts/github-sync-lib.mjs` and the matching client validation in `src/data/projectFeed.ts`. The schedule publishes data independently of the Vercel Git integration.
 
 The detective effects use an original magnifying-glass cursor, pointer-responsive case cards, a layered dossier and a floating desk magnifier. They use SVG/CSS 3D and one event-driven pointer handler, with no graphics library or continuous JavaScript render loop. Touch devices retain normal navigation, keyboard use restores the native cursor, and reduced-motion preferences disable animated pointer and tilt effects.
 
@@ -45,6 +55,7 @@ npm run check:navigation
 npm run check:headline
 npm run check:cards-video
 npm run check:skills
+npm run check:github
 npm run check:lighthouse
 ```
 
@@ -54,7 +65,8 @@ The browser check covers every route at 1440px and 390px, accessibility rules, o
 
 - `src/content.ts`: identity, contact links, location, skills, research content and results.
 - `src/data/liveSites.ts`: production platforms, contribution paragraphs, technical sections and screenshots.
-- `src/data/projects.ts`: project metadata and locally stored README/CV summaries.
+- `src/data/projects.ts`: curated project metadata and verified README/CV summaries.
+- `src/data/projectFeed.ts`, `src/components/useProjectFeed.ts` and `public/github-projects.json`: validated auto-sync data, ranking, static fallback and shared browser refresh.
 - `src/routing.ts`: route generation, page loaders and unique titles/descriptions.
 - `src/pages/`: page-specific presentations; `src/components/UI.tsx`: shared case-file components.
 - `src/styles.css`: Tailwind theme, local font declarations, layout, motion, mobile and print styles.

@@ -791,6 +791,7 @@ p {
 .project-card h3 {
   font-size: 24px;
   margin-bottom: 15px;
+  overflow-wrap: anywhere;
 }
 .project-card h3 a {
   display: flex;
@@ -814,6 +815,66 @@ p {
 .project-card .text-link {
   align-self: start;
   margin-top: auto;
+}
+.project-activity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+  margin: 0 0 24px;
+}
+.project-sync-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin: -12px 0 24px;
+}
+.project-sort-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-block: 1px solid var(--line);
+  padding: 18px 0;
+}
+.project-sort-bar label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+}
+.project-sort-bar select {
+  color: var(--paper);
+  background: #0b0b0d;
+  border: 1px solid var(--line);
+  padding: 10px 30px 10px 12px;
+  min-height: 44px;
+  font: inherit;
+  color-scheme: dark;
+}
+.project-sort-bar > p {
+  font-size: 9px;
+  line-height: 1.9;
+  color: var(--muted);
+}
+.project-ranking-note {
+  margin: 18px 0 28px;
+  color: var(--muted);
+  font-size: 12px;
+  max-width: 76ch;
+}
+.project-ranking-note summary {
+  cursor: pointer;
+}
+.project-ranking-note p {
+  margin-top: 12px;
+  line-height: 1.8;
+}
+.file-header h1 {
+  overflow-wrap: anywhere;
 }
 .results {
   padding-top: 66px;
