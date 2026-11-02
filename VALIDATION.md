@@ -2,6 +2,8 @@
 
 ## Automatic GitHub projects and Software Engineer CV - 2 November 2026
 
+- Follow-up: WASE is pinned before every other project in the shared sorter, including the home preview, both archive sort orders, static fallback and refreshed GitHub feeds. Home now reads "Cases worked on." The activity option is labeled "Most activity"; existing tag filters remain intact. Build/type/static checks and the updated sync suite pass at 1440, 390 and 320 pixels, including synthetic repositories with greater activity and file counts than WASE.
+
 - Source commit `2a4c1e5` adds a six-hour GitHub Actions sync, public data feed, activity/file-count ranking, filters, automatically discovered case files and live browser refresh without AI sessions or a required redeploy for data changes. Existing curated project URLs, research files, theme, excluded repositories and domain are preserved.
 - First unattended workflow [41454062413](https://github.com/RafiALMahmud/Portfolio/actions/runs/41454062413) completed successfully, including data refresh and publication. Its generated feed commit is `2740466`. No personal token is stored in the site or workflow.
 - Build/type checks and 35 independent static route checks pass; output is approximately 3.00 MB with the main JavaScript chunk approximately 71.85 kB gzip.

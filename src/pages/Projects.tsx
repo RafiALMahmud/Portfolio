@@ -57,7 +57,7 @@ export default function Projects() {
               value={sort}
               onChange={(e) => setSort(e.target.value as ProjectSort)}
             >
-              <option value="activity">Recent work</option>
+              <option value="activity">Most activity</option>
               <option value="files">Most code files</option>
             </select>
           </label>
@@ -78,12 +78,13 @@ export default function Projects() {
         <details className="project-ranking-note">
           <summary>How the files are ordered</summary>
           <p>
-            Recent work uses human, non-merge commits on the default branch over
-            the last 30 days. Work from the last week carries more weight;
-            code-file count breaks ties. Most code files puts the largest source
-            trees first. Source counts include code, templates, styles, SQL and
-            notebooks, excluding dependencies, builds and generated files.
-            Commit counts indicate activity rather than hours worked.
+            WASE always leads the archive. Most activity uses human, non-merge
+            commits on the default branch over the last 30 days. Work from the
+            last week carries more weight; code-file count breaks ties. Most
+            code files puts the largest source trees first. Source counts
+            include code, templates, styles, SQL and notebooks, excluding
+            dependencies, builds and generated files. Commit counts indicate
+            activity rather than hours worked.
           </p>
           <p>
             Public repositories sync every six hours. Research and other

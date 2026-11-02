@@ -111,10 +111,12 @@ export function sortProjects(
   sort: ProjectSort = "activity",
 ) {
   return [...catalogue].sort((a, b) => {
+    const pinned = Number(b.slug === "wase") - Number(a.slug === "wase");
     const activity =
       (b.activity?.activityScore || 0) - (a.activity?.activityScore || 0);
     const files = (b.activity?.codeFiles || 0) - (a.activity?.codeFiles || 0);
     return (
+      pinned ||
       (sort === "files" ? files || activity : activity || files) ||
       (b.activity?.lastCommitAt || "").localeCompare(
         a.activity?.lastCommitAt || "",

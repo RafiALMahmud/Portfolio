@@ -178,7 +178,8 @@ try {
       .getByRole("link", { name: "new-project", exact: false })
       .first()
       .waitFor();
-    assert.match(await cards.first().innerText(), /new-project/);
+    assert.match(await cards.first().innerText(), /WASE/);
+    assert.match(await cards.nth(1).innerText(), /new-project/);
     assert.equal(
       await page
         .locator(
@@ -200,16 +201,19 @@ try {
     );
     const liveCount = await cards.count();
     await page.getByLabel("SORT FILES").selectOption("files");
-    assert.match(await cards.first().innerText(), /large-source-tree/);
+    assert.match(await cards.first().innerText(), /WASE/);
+    assert.match(await cards.nth(1).innerText(), /large-source-tree/);
     const fileCounts = await cards.evaluateAll((nodes) =>
-      nodes.map((n) =>
-        Number(
-          (
-            n.querySelector(".project-activity span:last-child")?.textContent ||
-            "0"
-          ).replace(/[^\d]/g, ""),
+      nodes
+        .filter((n) => !n.querySelector('a[href="/projects/wase"]'))
+        .map((n) =>
+          Number(
+            (
+              n.querySelector(".project-activity span:last-child")
+                ?.textContent || "0"
+            ).replace(/[^\d]/g, ""),
+          ),
         ),
-      ),
     );
     assert.deepEqual(
       fileCounts,
@@ -217,7 +221,8 @@ try {
     );
     await page.getByRole("button", { name: "Python", exact: true }).click();
     assert((await cards.count()) < liveCount);
-    assert.match(await cards.first().innerText(), /large-source-tree/);
+    assert.match(await cards.first().innerText(), /WASE/);
+    assert.match(await cards.nth(1).innerText(), /large-source-tree/);
     await page.getByRole("button", { name: "All", exact: true }).click();
     assert.equal(await cards.count(), liveCount);
     const audit = await new AxeBuilder({ page })
@@ -263,9 +268,16 @@ try {
     await page.goto(origin, { waitUntil: "networkidle" });
     assert.match(
       await page.locator(".project-card").first().innerText(),
-      /new-project/,
+      /WASE/,
     );
     assert.equal(await page.locator(".project-card").count(), 3);
+    assert.match(
+      await page.locator(".project-card").nth(1).innerText(),
+      /new-project/,
+    );
+    await page
+      .getByRole("heading", { name: "Cases worked on.", exact: true })
+      .waitFor();
     assert.deepEqual(errors, []);
     await context.close();
 

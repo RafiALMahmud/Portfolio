@@ -74,12 +74,13 @@ export default function Home() {
       <section className="work-section">
         <SectionHeading
           index="02"
-          title="Recently on the desk."
+          title="Cases worked on."
           to="/projects"
           link="Browse the archive"
         />
         <p className="project-sync-note">
-          Automatically ordered by recent GitHub activity, then code-file count.
+          WASE leads the archive. Other projects sync from GitHub and follow by
+          activity and code-file count.
         </p>
         <div className="grid gap-5 md:grid-cols-3">
           {projects.slice(0, 3).map((p, i) => (
