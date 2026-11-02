@@ -1,5 +1,16 @@
 # Validation - 21 October 2026
 
+## Automatic GitHub projects and Software Engineer CV - 2 November 2026
+
+- Source commit `2a4c1e5` adds a six-hour GitHub Actions sync, public data feed, activity/file-count ranking, filters, automatically discovered case files and live browser refresh without AI sessions or a required redeploy for data changes. Existing curated project URLs, research files, theme, excluded repositories and domain are preserved.
+- First unattended workflow [41454062413](https://github.com/RafiALMahmud/Portfolio/actions/runs/41454062413) completed successfully, including data refresh and publication. Its generated feed commit is `2740466`. No personal token is stored in the site or workflow.
+- Build/type checks and 35 independent static route checks pass; output is approximately 3.00 MB with the main JavaScript chunk approximately 71.85 kB gzip.
+- All 70 desktop/mobile route/accessibility checks pass, with no horizontal overflow or browser errors. All home/live/project card surfaces open their files at both sizes; WASE video playback and seeking still pass.
+- New sync checks pass at 1440, 390 and 320 pixels: actual source-file classification, bot/merge exclusion, activity decay, paginated commits, complete traversal of truncated trees, atomic preservation after API failure, discovery of a repository absent at build time, both sort orders, filters, runtime case files and direct reloads, updated metadata, home ranking, dynamically inserted card visibility, accessibility, invalid/unavailable feed fallback and no-JavaScript archive access.
+- `public/cv.pdf` is byte-identical to `Rafi_Software_Engineer_Contract_Updated.pdf` from the supplied ZIP: one page, 137,131 bytes, SHA-256 `f21b9e8ada055d8280d5f880437ac686f4f9ee1558554f1ffaed77281e2dec8e`. PDF extraction verifies the Software Engineer title and bari project. The resume date and CV caching policy are updated.
+- Published source/feed `2740466` as `dpl_DZ3WNpdmWVhSWrWSci5Ve5SdFRgo`. Vercel reported READY, aliased the unchanged https://portfolio-9jtk.vercel.app domain and verified HTTP 200. Public `/projects` exposes auto-sync and both sorting options; public `/cv.pdf` matches the updated PDF's SHA-256 exactly and has `max-age=0, must-revalidate`. The independently published raw feed contains 24 public coding repositories.
+- The complete sync suite also passes against production at 1440, 390 and 320 pixels, including a simulated repository added after deployment, deep-link reload, both sort orders, home ranking, accessibility and unavailable/malformed-data fallbacks.
+
 Commit containing application source: `46d93cf`. Documentation and audit scripts were added in `f03045b`.
 
 - Production build and TypeScript checks: pass.
