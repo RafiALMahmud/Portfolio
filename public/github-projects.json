@@ -1,7 +1,7 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-02T13:25:36.222Z",
+  "syncedAt": "2026-11-02T13:34:01.614Z",
   "windowDays": 30,
   "repositories": [
     {
@@ -9,10 +9,10 @@
       "description": "",
       "language": "TypeScript",
       "topics": [],
-      "codeFiles": 41,
-      "recentCommits": 28,
-      "activityScore": 10.196,
-      "lastCommitAt": "2026-10-25T06:29:11Z"
+      "codeFiles": 47,
+      "recentCommits": 29,
+      "activityScore": 11.19,
+      "lastCommitAt": "2026-11-02T13:33:43Z"
     },
     {
       "name": "bari.com",
@@ -21,7 +21,7 @@
       "topics": [],
       "codeFiles": 197,
       "recentCommits": 29,
-      "activityScore": 7.562,
+      "activityScore": 7.557,
       "lastCommitAt": "2026-10-24T08:37:45Z"
     },
     {
@@ -31,7 +31,7 @@
       "topics": [],
       "codeFiles": 276,
       "recentCommits": 10,
-      "activityScore": 7.524,
+      "activityScore": 7.52,
       "lastCommitAt": "2026-11-02T10:07:03Z"
     },
     {
@@ -41,7 +41,7 @@
       "topics": [],
       "codeFiles": 47,
       "recentCommits": 2,
-      "activityScore": 1.876,
+      "activityScore": 1.875,
       "lastCommitAt": "2026-11-01T22:02:34Z"
     },
     {
