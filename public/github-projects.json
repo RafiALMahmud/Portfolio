@@ -1,9 +1,19 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-06T06:58:53.818Z",
+  "syncedAt": "2026-11-06T19:30:49.002Z",
   "windowDays": 30,
   "repositories": [
+    {
+      "name": "Ayna",
+      "description": "",
+      "language": "Python",
+      "topics": [],
+      "codeFiles": 97,
+      "recentCommits": 8,
+      "activityScore": 6.081,
+      "lastCommitAt": "2026-11-06T11:20:21Z"
+    },
     {
       "name": "bari.com",
       "description": "",
@@ -11,7 +21,7 @@
       "topics": [],
       "codeFiles": 197,
       "recentCommits": 29,
-      "activityScore": 5.226,
+      "activityScore": 4.962,
       "lastCommitAt": "2026-10-24T08:37:45Z"
     },
     {
@@ -21,18 +31,8 @@
       "topics": [],
       "codeFiles": 276,
       "recentCommits": 8,
-      "activityScore": 5.128,
+      "activityScore": 4.87,
       "lastCommitAt": "2026-11-02T10:07:03Z"
-    },
-    {
-      "name": "Ayna",
-      "description": "",
-      "language": "Python",
-      "topics": [],
-      "codeFiles": 47,
-      "recentCommits": 2,
-      "activityScore": 1.297,
-      "lastCommitAt": "2026-11-01T22:02:34Z"
     },
     {
       "name": "Vendorflow",
@@ -41,7 +41,7 @@
       "topics": [],
       "codeFiles": 20,
       "recentCommits": 1,
-      "activityScore": 0.139,
+      "activityScore": 0.132,
       "lastCommitAt": "2026-10-17T08:10:57Z"
     },
     {
