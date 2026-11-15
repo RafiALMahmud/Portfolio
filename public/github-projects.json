@@ -1,7 +1,7 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-14T22:33:21.271Z",
+  "syncedAt": "2026-11-15T06:47:32.759Z",
   "windowDays": 30,
   "repositories": [
     {
@@ -11,7 +11,7 @@
       "topics": [],
       "codeFiles": 97,
       "recentCommits": 8,
-      "activityScore": 2.719,
+      "activityScore": 2.629,
       "lastCommitAt": "2026-11-06T11:20:21Z"
     },
     {
@@ -21,7 +21,7 @@
       "topics": [],
       "codeFiles": 197,
       "recentCommits": 29,
-      "activityScore": 2.219,
+      "activityScore": 2.145,
       "lastCommitAt": "2026-10-24T08:37:45Z"
     },
     {
@@ -31,7 +31,7 @@
       "topics": [],
       "codeFiles": 276,
       "recentCommits": 8,
-      "activityScore": 2.178,
+      "activityScore": 2.105,
       "lastCommitAt": "2026-11-02T10:07:03Z"
     },
     {
@@ -41,7 +41,7 @@
       "topics": [],
       "codeFiles": 20,
       "recentCommits": 1,
-      "activityScore": 0.059,
+      "activityScore": 0.057,
       "lastCommitAt": "2026-10-17T08:10:57Z"
     },
     {
