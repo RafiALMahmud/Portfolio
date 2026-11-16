@@ -1,7 +1,7 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-16T06:46:28.107Z",
+  "syncedAt": "2026-11-16T22:18:27.057Z",
   "windowDays": 30,
   "repositories": [
     {
@@ -11,7 +11,7 @@
       "topics": [],
       "codeFiles": 97,
       "recentCommits": 8,
-      "activityScore": 2.381,
+      "activityScore": 2.233,
       "lastCommitAt": "2026-11-06T11:20:21Z"
     },
     {
@@ -21,7 +21,7 @@
       "topics": [],
       "codeFiles": 197,
       "recentCommits": 29,
-      "activityScore": 1.943,
+      "activityScore": 1.822,
       "lastCommitAt": "2026-10-24T08:37:45Z"
     },
     {
@@ -31,18 +31,8 @@
       "topics": [],
       "codeFiles": 276,
       "recentCommits": 8,
-      "activityScore": 1.907,
+      "activityScore": 1.788,
       "lastCommitAt": "2026-11-02T10:07:03Z"
-    },
-    {
-      "name": "Vendorflow",
-      "description": "",
-      "language": "TypeScript",
-      "topics": [],
-      "codeFiles": 20,
-      "recentCommits": 1,
-      "activityScore": 0.052,
-      "lastCommitAt": "2026-10-17T08:10:57Z"
     },
     {
       "name": "Mangostudent",
@@ -143,6 +133,16 @@
       "recentCommits": 0,
       "activityScore": 0,
       "lastCommitAt": "2025-09-09T17:53:24Z"
+    },
+    {
+      "name": "Vendorflow",
+      "description": "",
+      "language": "TypeScript",
+      "topics": [],
+      "codeFiles": 20,
+      "recentCommits": 0,
+      "activityScore": 0,
+      "lastCommitAt": "2026-10-17T08:10:57Z"
     },
     {
       "name": "Cse330",
