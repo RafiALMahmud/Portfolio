@@ -1,27 +1,41 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-17T21:04:10.819Z",
+  "syncedAt": "2026-11-18T07:41:46.376Z",
   "windowDays": 30,
   "repositories": [
     {
       "name": "Ayna",
-      "description": "",
+      "description": "Multi-category e-commerce platform with local AI, virtual try-on, and 3D product generation.",
       "language": "Python",
-      "topics": [],
+      "topics": [
+        "3d-modeling",
+        "ecommerce",
+        "fastapi",
+        "local-ai",
+        "react",
+        "virtual-try-on"
+      ],
       "codeFiles": 97,
       "recentCommits": 8,
-      "activityScore": 2.033,
+      "activityScore": 1.946,
       "lastCommitAt": "2026-11-06T11:20:21Z"
     },
     {
       "name": "Sportevo",
-      "description": "",
+      "description": "Bilingual Bangladesh turf and sports-complex booking platform built with Laravel 12, React 19, and MySQL.",
       "language": "PHP",
-      "topics": [],
+      "topics": [
+        "bangladesh",
+        "laravel",
+        "mysql",
+        "react",
+        "sportevo",
+        "sports-booking"
+      ],
       "codeFiles": 276,
       "recentCommits": 8,
-      "activityScore": 1.628,
+      "activityScore": 1.558,
       "lastCommitAt": "2026-11-02T10:07:03Z"
     },
     {
@@ -30,8 +44,8 @@
       "language": "Python",
       "topics": [],
       "codeFiles": 197,
-      "recentCommits": 19,
-      "activityScore": 1.16,
+      "recentCommits": 17,
+      "activityScore": 1.008,
       "lastCommitAt": "2026-10-24T08:37:45Z"
     },
     {
@@ -166,7 +180,7 @@
     },
     {
       "name": "Cse423-Project",
-      "description": "",
+      "description": "BRAC University CSE423 course project.",
       "language": "Python",
       "topics": [],
       "codeFiles": 5,
@@ -176,7 +190,7 @@
     },
     {
       "name": "422-Lab-Project",
-      "description": "",
+      "description": "BRAC University CSE422 lab project.",
       "language": "Python",
       "topics": [],
       "codeFiles": 4,
