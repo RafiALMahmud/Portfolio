@@ -1,7 +1,7 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-24T10:04:26.981Z",
+  "syncedAt": "2026-11-24T22:35:27.157Z",
   "windowDays": 30,
   "repositories": [
     {
@@ -18,7 +18,7 @@
       ],
       "codeFiles": 97,
       "recentCommits": 8,
-      "activityScore": 1.064,
+      "activityScore": 1.01,
       "lastCommitAt": "2026-11-06T11:20:21Z"
     },
     {
@@ -35,7 +35,7 @@
       ],
       "codeFiles": 276,
       "recentCommits": 8,
-      "activityScore": 0.852,
+      "activityScore": 0.809,
       "lastCommitAt": "2026-11-02T10:07:03Z"
     },
     {
