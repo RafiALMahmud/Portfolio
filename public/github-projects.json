@@ -1,7 +1,7 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-26T08:35:49.126Z",
+  "syncedAt": "2026-11-26T21:42:30.092Z",
   "windowDays": 30,
   "repositories": [
     {
@@ -18,7 +18,7 @@
       ],
       "codeFiles": 97,
       "recentCommits": 8,
-      "activityScore": 0.878,
+      "activityScore": 0.832,
       "lastCommitAt": "2026-11-06T11:20:21Z"
     },
     {
@@ -34,8 +34,8 @@
         "sports-booking"
       ],
       "codeFiles": 276,
-      "recentCommits": 8,
-      "activityScore": 0.703,
+      "recentCommits": 7,
+      "activityScore": 0.617,
       "lastCommitAt": "2026-11-02T10:07:03Z"
     },
     {
