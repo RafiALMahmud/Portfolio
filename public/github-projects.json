@@ -1,9 +1,26 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-27T08:47:33.412Z",
+  "syncedAt": "2026-11-27T21:27:04.034Z",
   "windowDays": 30,
   "repositories": [
+    {
+      "name": "nyc-ride-demand-analytics",
+      "description": "NYC high-volume FHV ride demand analysis: PostgreSQL, window-function SQL and a Power BI dashboard with ops recommendations",
+      "language": "Python",
+      "topics": [
+        "dashboard",
+        "data-analysis",
+        "nyc-tlc",
+        "postgresql",
+        "power-bi",
+        "sql"
+      ],
+      "codeFiles": 6,
+      "recentCommits": 7,
+      "activityScore": 4.112,
+      "lastCommitAt": "2026-11-27T17:17:06Z"
+    },
     {
       "name": "Ayna",
       "description": "Multi-category e-commerce platform with local AI, virtual try-on, and 3D product generation.",
@@ -18,7 +35,7 @@
       ],
       "codeFiles": 97,
       "recentCommits": 8,
-      "activityScore": 0.794,
+      "activityScore": 0.754,
       "lastCommitAt": "2026-11-06T11:20:21Z"
     },
     {
@@ -35,7 +52,7 @@
       ],
       "codeFiles": 276,
       "recentCommits": 7,
-      "activityScore": 0.59,
+      "activityScore": 0.56,
       "lastCommitAt": "2026-11-02T10:07:03Z"
     },
     {
