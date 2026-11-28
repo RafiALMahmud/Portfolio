@@ -1,7 +1,7 @@
 {
   "version": 1,
   "owner": "RafiALMahmud",
-  "syncedAt": "2026-11-27T21:27:04.034Z",
+  "syncedAt": "2026-11-28T08:02:07.644Z",
   "windowDays": 30,
   "repositories": [
     {
@@ -17,9 +17,9 @@
         "sql"
       ],
       "codeFiles": 6,
-      "recentCommits": 7,
-      "activityScore": 4.112,
-      "lastCommitAt": "2026-11-27T17:17:06Z"
+      "recentCommits": 11,
+      "activityScore": 7.776,
+      "lastCommitAt": "2026-11-27T22:13:44Z"
     },
     {
       "name": "Ayna",
@@ -35,7 +35,7 @@
       ],
       "codeFiles": 97,
       "recentCommits": 8,
-      "activityScore": 0.754,
+      "activityScore": 0.722,
       "lastCommitAt": "2026-11-06T11:20:21Z"
     },
     {
@@ -52,7 +52,7 @@
       ],
       "codeFiles": 276,
       "recentCommits": 7,
-      "activityScore": 0.56,
+      "activityScore": 0.536,
       "lastCommitAt": "2026-11-02T10:07:03Z"
     },
     {
